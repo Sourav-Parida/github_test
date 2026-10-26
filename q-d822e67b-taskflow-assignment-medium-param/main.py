@@ -8,8 +8,12 @@ def summarize_results(cases):
         else:
             failures.append(case['name'])
 
+    total = len(cases)
+    failed = total - passed
+
     return {
+        'total': total,
         'passed': passed,
-        'failed': len(failures),
+        'failed': failed,
         'failures': failures
     }
