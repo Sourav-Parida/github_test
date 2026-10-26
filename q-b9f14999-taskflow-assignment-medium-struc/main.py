@@ -4,5 +4,19 @@ def build_log_record(request, seq, allowed_origins):
     path = request.get('path', '/')
     status = request.get('status', 200)
     origin = request.get('origin')
-    # TODO: derive level from status and assemble the record
-    return {}
+
+    if status >= 500:
+        level = 'error'
+    elif status >= 400:
+        level = 'warn'
+    else:
+        level = 'info'
+
+    return {
+        'request_id': 'req-%05d' % seq,
+        'method': method,
+        'path': path,
+        'status': status,
+        'level': level,
+        'cors_allowed': origin in allowed_origins
+    }

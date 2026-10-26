@@ -1,12 +1,14 @@
 def sanitize_tag(raw):
-    """Return a safe TaskFlow tag slug from a raw user string.
+    """Return a safe TaskFlow tag slug from a raw user string."""
+    if not isinstance(raw, str):
+        return "untitled"
 
-    Rules:
-      - If raw is not a str, return 'untitled'.
-      - Strip surrounding whitespace.
-      - Keep only ASCII letters, ASCII digits, hyphen '-' and underscore '_';
-        drop every other character (spaces, punctuation, accented letters, emoji).
-      - If nothing is left, return 'untitled'.
-    """
-    # TODO: implement the rules above
-    pass
+    result = ''.join(
+        char for char in raw.strip()
+        if ('a' <= char <= 'z') or
+          ('A' <= char <= 'Z') or
+          ('0' <= char <= '9') or
+          char in '-_'
+    )
+
+    return result if result else "untitled"
