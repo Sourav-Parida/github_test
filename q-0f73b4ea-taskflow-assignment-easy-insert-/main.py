@@ -19,7 +19,24 @@ def insert_tasks(rows):
     ordered by id. Missing "status" should default to "todo"."""
     engine = create_engine("sqlite://")
     Base.metadata.create_all(engine)
+
     with Session(engine) as session:
-        # TODO: add a Task for each row, commit, then read them all back
-        # TODO: return a list of plain dicts (not Task objects)
-        pass
+        for row in rows:
+            task = Task(
+                title=row["title"],
+                status=row.get("status", "todo")
+            )
+            session.add(task)
+
+        session.commit()
+
+        tasks = session.query(Task).order_by(Task.id).all()
+
+        return [
+            {
+                "id": task.id,
+                "title": task.title,
+                "status": task.status
+            }
+            for task in tasks
+        ]
