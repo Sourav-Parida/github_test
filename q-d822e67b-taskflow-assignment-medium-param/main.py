@@ -1,4 +1,15 @@
 def summarize_results(cases):
-    # TODO: iterate cases, compare expected vs actual,
-    # count passes and collect failing names in order
-    raise NotImplementedError("Write your solution here")
+    passed = 0
+    failures = []
+
+    for case in cases:
+        if case['expected'] == case['actual']:
+            passed += 1
+        else:
+            failures.append(case['name'])
+
+    return {
+        'passed': passed,
+        'failed': len(failures),
+        'failures': failures
+    }
