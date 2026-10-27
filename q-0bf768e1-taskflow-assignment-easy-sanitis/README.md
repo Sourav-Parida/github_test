@@ -1,40 +1,36 @@
-# TaskFlow Assignment (Easy) — Count Tasks by Status
+# TaskFlow Assignment (Easy) — Sanitise TaskFlow Tag Names
 
-## Count Tasks by Status
-
-A TaskFlow board wants a quick tally: how many tasks sit in each status column. You'll write the counter — a tiny, pure function that's easy to unit-*test*, which is exactly this session's theme.
+Users type messy tag names on their TaskFlow tasks. Before you store or show a tag you *sanitise* it — strip out anything that isn't a safe, plain character — so no surprising input sneaks through. You'll write that cleaner.
 
 ## Worked example
 ```python
-count_by_status([{'status': 'todo'}, {'status': 'done'}])   # -> {'todo': 1, 'done': 1}
-count_by_status([{'status': 'todo'}, {'status': 'todo'}])   # -> {'todo': 2}
+sanitize_tag(' Bug-Fix ')   # -> 'Bug-Fix'
 ```
-Walk the list and add 1 to a running count for each task's status. Statuses appear in the result in the order they were first seen.
+The surrounding spaces are trimmed, and every remaining character (`B`, `u`, `g`, `-`, `F`, `i`, `x`) is an ASCII letter or a hyphen, so all are kept — with their original upper/lower case.
 
 ## What to build
-`count_by_status(tasks)`:
-- `tasks` is a list of dicts, each with a `'status'` key (e.g. `'todo'`, `'in_progress'`, `'done'`, or any other string).
-- Return a dict mapping each status seen to how many tasks have it.
-- Preserve **first-seen insertion order** of statuses.
-- An empty list returns `{}`.
-- Extra keys on a task (like `'id'`) are ignored.
+`sanitize_tag(raw)`:
+1. If `raw` is not a `str`, return `'untitled'`.
+2. Strip surrounding whitespace.
+3. Keep ONLY ASCII letters, ASCII digits, hyphen `-` and underscore `_`. Drop everything else (spaces, punctuation, accented/non-ASCII letters, emoji).
+4. If nothing remains, return `'untitled'`.
 
-The function must be pure: no printing, no input, just return the dict.
+Case is preserved (do not upper/lower-case the kept characters). Return a plain string.
 
 ## Concepts you'll use
-Looping over a list, `dict.get(status, 0) + 1` (or `collections.Counter`), reading a dict key.
+`isinstance`, `str.strip`, filtering characters into a new string (loop or comprehension), an allowed set or `str.isascii`/`str.isalnum`.
 
 <!--LL-CONTRACT-->
 ### How to solve this
 Write your Python **directly in the code editor** on the right, then click **Run Tests**. There is a single editor — you do **not** create or name any file; just define the function(s) below.
 
 **Define:**
-- `count_by_status(tasks)`
+- `sanitize_tag(raw)`
 
 **What the grader runs** (each value is scored **separately**, so a partly-correct answer still earns marks):
-- `count_by_status([{'status': 'todo'}, {'status': 'done'}])['todo']`  →  `1`
-- `count_by_status([{'status': 'todo'}, {'status': 'done'}])['done']`  →  `1`
-- `count_by_status([{'status': 'todo'}, {'status': 'todo'}])`  →  `{"todo": 2}`
+- `sanitize_tag(' Bug-Fix ')`  →  `Bug-Fix`
+- `sanitize_tag('hot!!!')`  →  `hot`
+- `sanitize_tag('   ')`  →  `untitled`
 
 Return the exact value shown (a list stays a list; round numbers only if the task says so). **`return` the value — do not `print` it.**
 
@@ -55,7 +51,7 @@ Return the exact value shown (a list stays a list; round numbers only if the tas
 ### The exact shape to define
 
 ```python
-def count_by_status(tasks)
+def sanitize_tag(raw)
 ```
 
 > **Runtime:** your code is graded on **Python 3.11**, the same version as the Python in your editor. Modern syntax is fine — `match` statements and `int | None` unions in annotations both work.

@@ -1,39 +1,34 @@
-# TaskFlow Assignment (Easy) — Issue a TaskFlow Access Token
+# TaskFlow Assignment (Easy) — Cache-Key Builder for Task Queries
 
-When someone logs into TaskFlow, the server hands them a *JWT* (JSON Web Token) — a compact, signed string that proves who they are on later requests. It's signed with a secret, so nobody can forge or tamper with it. You'll write the helpers that create and read one.
+Before TaskFlow asks the database for a list of tasks, it checks a cache — a fast store keyed by a short string. This is the *cache-aside* pattern: look in the cache first, hit the database only on a miss. Here you'll build the key that names one such cached query.
 
 ## Worked example
 ```python
-tok = issue_token('u1', 'admin', 's3cr3t')
-read_claims(tok, 's3cr3t')['sub']    # -> 'u1'
-read_claims(tok, 's3cr3t')['role']   # -> 'admin'
+build_cache_key('tasks', status='done', project=5)   # -> 'tasks:project=5&status=done'
 ```
-`issue_token` signs the payload `{"sub": "u1", "role": "admin"}` with the secret into a token string; `read_claims` verifies the signature with the same secret and gives the payload back.
+With no filters you'd get just `'tasks'`. With filters, each `key=value` pair is sorted **by key** (`project` before `status`) and joined with `&`, then placed after `entity:` — so the same filters always produce the same key, no matter the call order.
 
 ## What to build
-Using the `pyjwt` library (`import jwt`, HS256):
-- `issue_token(user_id, role, secret)` -> a JWT whose payload is exactly `{"sub": user_id, "role": role}`.
-- `read_claims(token, secret)` -> the decoded claims dict.
-- `token_is_valid(token, secret)` -> `True` if the token decodes under `secret`, else `False` (never raise).
-
-All functions are pure Python and return plain values. Use `algorithm="HS256"` when encoding and `algorithms=["HS256"]` when decoding.
+`build_cache_key(entity, **filters)` (`**filters` means: any extra keyword arguments arrive as a dict named `filters`):
+- No filters -> return the bare `entity` (e.g. `build_cache_key('tasks')` -> `'tasks'`).
+- With filters -> return `entity` + `':'` + the `key=value` pairs joined by `'&'`, **sorted alphabetically by key** so key order in the call never matters.
+- Render values with plain `str()`; falsy values like `0` and `False` MUST be kept.
+- If `entity` is empty or not a string, return `None`.
 
 ## Concepts you'll use
-`jwt.encode` / `jwt.decode`, dict payloads, `try/except` to return `False` instead of raising.
+`**kwargs`, `sorted(...)`, f-strings or `str()`, `str.join`, `isinstance`.
 
 <!--LL-CONTRACT-->
 ### How to solve this
 Write your Python **directly in the code editor** on the right, then click **Run Tests**. There is a single editor — you do **not** create or name any file; just define the function(s) below.
 
 **Define:**
-- `issue_token(user_id, role, secret)`
-- `read_claims(token, secret)`
-- `token_is_valid(token, secret)`
+- `build_cache_key(entity, **filters)`
 
 **What the grader runs** (each value is scored **separately**, so a partly-correct answer still earns marks):
-- `read_claims(issue_token('u1','admin','s3cr3t'),'s3cr3t')['sub']`  →  `u1`
-- `read_claims(issue_token('u1','admin','s3cr3t'),'s3cr3t')['role']`  →  `admin`
-- `read_claims(issue_token('u9','member','k'),'k')['sub']`  →  `u9`
+- `build_cache_key('tasks')`  →  `tasks`
+- `build_cache_key('tasks', status='done')`  →  `tasks:status=done`
+- `build_cache_key('tasks', project=5, status='done')`  →  `tasks:project=5&status=done`
 
 Return the exact value shown (a list stays a list; round numbers only if the task says so). **`return` the value — do not `print` it.**
 
@@ -54,9 +49,7 @@ Return the exact value shown (a list stays a list; round numbers only if the tas
 ### The exact shape to define
 
 ```python
-def issue_token(user_id, role, secret)
-def read_claims(token, secret)
-def token_is_valid(token, secret)
+def build_cache_key(entity, **filters)
 ```
 
 > **Runtime:** your code is graded on **Python 3.11**, the same version as the Python in your editor. Modern syntax is fine — `match` statements and `int | None` unions in annotations both work.
