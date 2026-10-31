@@ -6,12 +6,7 @@ class PracticeAreaCreate(BaseModel):
     name: str = Field(min_length=1)
     floor_number: int = Field(ge=1)
 
-    @field_validator("name")
-    @classmethod
-    def name_not_blank(cls, v):
-        if not v.strip():
-            raise ValueError("name must not be blank")
-        return v  
+
 
 
 class PracticeAreaOut(BaseModel):
@@ -26,13 +21,6 @@ class ConsultantCreate(BaseModel):
     designation: str = Field(min_length=1)
     consultation_fee: int = Field(ge=300)
     experience_years: int = Field(ge=0)
-
-    @field_validator("name", "designation")
-    @classmethod
-    def not_blank(cls, v):
-        if not v.strip():
-            raise ValueError("must not be blank")
-        return v
 
 class ConsultantOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
