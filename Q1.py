@@ -11,6 +11,16 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 
+
+fill_num=["RAM_GB", "Storage_GB", "ScreenSize",
+    "AgeYears", "BatteryHealth"]
+
+num_cols = fill_num + ["PerformanceScore"]
+
+cat_cols= [
+    "Brand", "Processor", "StorageType", "Condition"
+    ]
+
 # Function 1: Load and clean data
 def load_and_clean_data(filepath):
 
@@ -18,11 +28,6 @@ def load_and_clean_data(filepath):
 
     # Remove duplicate LaptopIDs
     df = df.drop_duplicates(subset="LaptopID", keep="first")
-
-    # Remove invalid rows
-    # df = df[(df["ResalePrice"] > 0) & 
-    #         (df["BatteryHealth"].isna() | ((df["BatteryHealth"] >= 0) & (df["BatteryHealth"] <= 100)))
-    # ]
 
     valid_price = df["ResalePrice"] > 0
     
@@ -33,23 +38,12 @@ def load_and_clean_data(filepath):
 
     df = df[valid_price & valid_battery]
 
-    # Numerical columns
-    numerical_cols = [
-        "RAM_GB", "Storage_GB", "ScreenSize",
-        "AgeYears", "BatteryHealth"
-    ]
-
-    # Categorical columns
-    categorical_cols = [
-        "Brand", "Processor", "StorageType", "Condition"
-    ]
-
     # Fill missing numerical values with median
-    for col in numerical_cols:
+    for col in fill_num:
         df[col] = df[col].fillna(df[col].median())
 
     # Fill missing categorical values with mode
-    for col in categorical_cols:
+    for col in cat_cols:
         df[col] = df[col].fillna(df[col].mode()[0])
 
     # Reset index
@@ -74,43 +68,23 @@ def add_features(df):
 # Function 3: Build pipeline
 def build_pipeline():
 
-    numerical_features = [
-        "RAM_GB", "Storage_GB", "ScreenSize",
-        "AgeYears", "BatteryHealth", "PerformanceScore"
-    ]
+    preprocessor = ColumnTransformer([
+        ("num", StandardScaler(), num_cols),
+        ("cat", OneHotEncoder(handle_unknown="ignore"),cat_cols)
+    ])
 
-    categorical_features = [
-        "Brand", "Processor", "StorageType", "Condition"
-    ]
+    pipeline = Pipeline([
+        ("preprocessor", preprocessor),
+        ("model", LinearRegression())
+    ])
 
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ("num", StandardScaler(), numerical_features),
-            ("cat", OneHotEncoder(handle_unknown="ignore"),
-            categorical_features)
-        ]
-    )
-
-    pipeline = Pipeline(
-        steps=[
-            ("preprocessor", preprocessor),
-            ("model", LinearRegression())
-        ]
-    )
-
-    return pipeline
+    return pipeline 
 
 
 # Function 4: Train model
 def train_model(df):
 
-    features = [
-        "RAM_GB", "Storage_GB", "ScreenSize",
-        "AgeYears", "BatteryHealth", "PerformanceScore",
-        "Brand", "Processor", "StorageType", "Condition"
-    ]
-
-    X = df[features]
+    X = df[num_cols + cat_cols]
     y = df["ResalePrice"]
 
     X_train, X_test, y_train, y_test = train_test_split(
@@ -130,16 +104,12 @@ def train_model(df):
 # Function 5: Evaluate model
 def evaluate_model(model, X_test, y_test):
 
-    predictions = model.predict(X_test)
-
-    mae = mean_absolute_error(y_test, predictions)
-    rmse = np.sqrt(mean_squared_error(y_test, predictions))
-    r2 = r2_score(y_test, predictions)
+    y_pred = model.predict(X_test)
 
     return {
-        "MAE": round(float(mae), 2),
-        "RMSE": round(float(rmse), 2),
-        "R2": round(float(r2), 2)
+        "MAE": round(float(mean_absolute_error(y_test, y_pred)), 2),
+        "RMSE": round(float(np.sqrt(mean_squared_error(y_test, y_pred))), 2),
+        "R2": round(float(r2_score(y_test, y_pred)), 2)
     }
 
 
@@ -147,21 +117,10 @@ def evaluate_model(model, X_test, y_test):
 def predict_prices(model_path, filepath):
 
     model = joblib.load(model_path)
-
     df = pd.read_csv(filepath)
-
     df = add_features(df)
-
-    features = [
-        "RAM_GB", "Storage_GB", "ScreenSize",
-        "AgeYears", "BatteryHealth", "PerformanceScore",
-        "Brand", "Processor", "StorageType", "Condition"
-    ]
-
-    predictions = model.predict(df[features])
-
+    predictions = model.predict(df[num_cols + cat_cols])
     df["PredictedPrice"] = np.round(predictions, 2)
-
     # Save predictions
     df.to_csv("predicted_laptop_prices.csv", index=False)
 
@@ -179,9 +138,7 @@ if __name__ == "__main__":
 
     model, X_test, y_test = train_model(df)
 
-    metrics = evaluate_model(model, X_test, y_test)
-
-    print("Evaluation Metrics:", metrics)
+    print("Evaluation Metrics:", evaluate_model(model, X_test, y_test))
 
     result = predict_prices(
         "laptop_price_model.joblib",

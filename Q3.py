@@ -11,42 +11,63 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 
 
+# Global column definitions
+
+fill_num = [
+    "CapacityKW", "SunshineHours", "CloudCoverPct",
+    "AmbientTempC", "DustIndex", "DaysSinceCleaning"
+]
+
+num_cols = ["EffectiveSunHours"]+fill_num
+
+cat_cols = [
+    "Plant", "PanelType", "TrackerType"
+]
+
+FEATURES = num_cols + cat_cols
+
+
 # Function 1: Load and clean data
 def load_and_clean_data(filepath):
 
     df = pd.read_csv(filepath)
 
-    # Remove duplicate records
+    # Remove duplicate RecordIDs
     df = df.drop_duplicates(subset="RecordID", keep="first")
 
     # Convert Fahrenheit to Celsius
     mask = df["AmbientTempC"] > 60
 
-    df.loc[mask, "AmbientTempC"] = (
-        (df.loc[mask, "AmbientTempC"] - 32) * 5 / 9
-    ).round(1)
+    df.loc[mask, "AmbientTempC"] = ((df.loc[mask, "AmbientTempC"] - 32) * 5 / 9).round(1)
 
     # Remove invalid rows
+    valid_cloud = (
+        df["CloudCoverPct"].isna() |
+        df["CloudCoverPct"].between(0, 100)
+    )
+
+    valid_sunshine = (
+        df["SunshineHours"].isna() |
+        df["SunshineHours"].between(0, 14)
+    )
+
+    valid_capacity = (
+        df["CapacityKW"].isna() |
+        (df["CapacityKW"] > 0)
+    )
 
     df = df[
-    (df["CloudCoverPct"].isna() | df["CloudCoverPct"].between(0, 100)) &
-    (df["SunshineHours"].isna() | df["SunshineHours"].between(0, 14)) &
-    (df["CapacityKW"].isna() | (df["CapacityKW"] > 0))
+        valid_cloud &
+        valid_sunshine &
+        valid_capacity
     ]
 
-    # Numerical columns
-    numerical_cols = [
-        "CapacityKW", "SunshineHours", "CloudCoverPct",
-        "AmbientTempC", "DustIndex", "DaysSinceCleaning"
-    ]
-
-    for col in numerical_cols:
+    # Fill missing numerical values with median
+    for col in fill_num:
         df[col] = df[col].fillna(df[col].median())
 
-    # Categorical columns
-    categorical_cols = ["Plant", "PanelType", "TrackerType"]
-
-    for col in categorical_cols:
+    # Fill missing categorical values with mode
+    for col in cat_cols:
         df[col] = df[col].fillna(df[col].mode()[0])
 
     # Reset index
@@ -63,10 +84,7 @@ def add_features(df):
 
     df = df.copy()
 
-    df["EffectiveSunHours"] = (
-        df["SunshineHours"] *
-        (1 - df["CloudCoverPct"] / 100)
-    ).round(2)
+    df["EffectiveSunHours"] = (df["SunshineHours"] *(1 - df["CloudCoverPct"] / 100)).round(2)
 
     return df
 
@@ -74,60 +92,38 @@ def add_features(df):
 # Function 3: Build pipeline
 def build_pipeline(max_depth=8, min_samples_leaf=10):
 
-    numerical_features = [
-        "CapacityKW", "SunshineHours", "CloudCoverPct",
-        "AmbientTempC", "DustIndex", "DaysSinceCleaning",
-        "EffectiveSunHours"
-    ]
+    preprocessor = ColumnTransformer([
+        ("num", "passthrough", num_cols),
+        (
+            "cat",
+            OneHotEncoder(handle_unknown="ignore"),
+            cat_cols
+        )
+    ])
 
-    categorical_features = [
-        "Plant", "PanelType", "TrackerType"
-    ]
-
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ("num", "passthrough", numerical_features),
-            (
-                "cat",
-                OneHotEncoder(handle_unknown="ignore"),
-                categorical_features
+    pipeline = Pipeline([
+        ("preprocessor", preprocessor),
+        (
+            "model",
+            DecisionTreeRegressor(
+                max_depth=max_depth,
+                min_samples_leaf=min_samples_leaf,
+                random_state=42
             )
-        ]
-    )
-
-    pipeline = Pipeline(
-        steps=[
-            ("preprocessor", preprocessor),
-            (
-                "model",
-                DecisionTreeRegressor(
-                    max_depth=max_depth,
-                    min_samples_leaf=min_samples_leaf,
-                    random_state=42
-                )
-            )
-        ]
-    )
+        )
+    ])
 
     return pipeline
-
-
-# Feature columns
-FEATURES = [
-    "CapacityKW", "SunshineHours", "CloudCoverPct",
-    "AmbientTempC", "DustIndex", "DaysSinceCleaning",
-    "EffectiveSunHours", "Plant", "PanelType", "TrackerType"
-]
 
 
 # Function 4: Train model
 def train_model(df):
 
-    X = df[FEATURES]
+    X = df[num_cols + cat_cols]
     y = df["EnergyKWh"]
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+        X,y,test_size=0.2,random_state=42
     )
 
     model = build_pipeline()
@@ -143,25 +139,25 @@ def train_model(df):
 # Function 5: Evaluate model
 def evaluate_model(model, X_test, y_test):
 
-    predictions = model.predict(X_test)
-
-    mae = mean_absolute_error(y_test, predictions)
-    r2 = r2_score(y_test, predictions)
+    y_pred = model.predict(X_test)
 
     return {
-        "MAE": round(float(mae), 2),
-        "R2": round(float(r2), 2)
+        "MAE": round(float(mean_absolute_error(y_test, y_pred)), 2),
+        "R2": round(float(r2_score(y_test, y_pred)), 2)
     }
 
 
 # Function 6: Compare tree depths
 def compare_depths(df):
 
-    X = df[FEATURES]
+    X = df[num_cols + cat_cols]
     y = df["EnergyKWh"]
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+        X,
+        y,
+        test_size=0.2,
+        random_state=42
     )
 
     results = []
@@ -191,21 +187,26 @@ def compare_depths(df):
 def get_feature_importance(model):
 
     feature_names = (
-        model.named_steps["preprocessor"].get_feature_names_out()
+        model.named_steps["preprocessor"]
+        .get_feature_names_out()
     )
 
     # Remove num__ and cat__ prefixes
     feature_names = [
-        name.split("__", 1)[-1] for name in feature_names
+        name.split("__", 1)[-1]
+        for name in feature_names
     ]
 
-    importances = model.named_steps["model"].feature_importances_
+    importances = (
+        model.named_steps["model"].feature_importances_
+    )
 
     df = pd.DataFrame({
         "Feature": feature_names,
         "Importance": importances
     })
 
+    # Sort by importance and get top 5
     df = df.sort_values(
         by="Importance",
         ascending=False
@@ -246,17 +247,16 @@ if __name__ == "__main__":
 
     model, X_test, y_test = train_model(df)
 
-    metrics = evaluate_model(model, X_test, y_test)
-
-    print("Evaluation Metrics:", metrics)
+    print(
+        "Evaluation Metrics:",
+        evaluate_model(model, X_test, y_test)
+    )
 
     print("Depth Comparison:")
-    depth_results = compare_depths(df)
-    print(depth_results)
+    print(compare_depths(df))
 
     print("Top 5 Features:")
-    importance = get_feature_importance(model)
-    print(importance)
+    print(get_feature_importance(model))
 
     result = predict_energy(
         "solar_energy_model.joblib",
@@ -264,6 +264,7 @@ if __name__ == "__main__":
     )
 
     print("Top 5 Predictions:")
+
     print(
         result[
             ["RecordID", "PredictedEnergyKWh"]

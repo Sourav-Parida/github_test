@@ -11,6 +11,25 @@ from sklearn.svm import SVC
 from sklearn.metrics import recall_score, f1_score, confusion_matrix
 
 
+# Global column definitions
+
+fill_num = [
+    "DurationSec", "SrcBytes", "DstBytes",
+    "FailedLogins", "ConnCount", "SameSrvRate",
+    "ErrorRate"
+]
+
+num_cols = [
+    "DurationSec", "LogSrcBytes", "LogDstBytes",
+    "FailedLogins", "ConnCount", "SameSrvRate",
+    "ErrorRate"
+]
+
+cat_cols = ["Protocol", "Service", "Flag"]
+
+FEATURES = num_cols + cat_cols
+
+
 # Function 1: Load and clean data
 def load_and_clean_data(filepath):
 
@@ -20,30 +39,39 @@ def load_and_clean_data(filepath):
     df = df.drop_duplicates(subset="ConnectionID", keep="first")
 
     # Remove invalid rows
+    valid_duration = (
+        df["DurationSec"].isna() |
+        (df["DurationSec"] >= 0)
+    )
+
+    valid_src = (df["SrcBytes"].isna() |(df["SrcBytes"] >= 0))
+
+    valid_dst = (
+        df["DstBytes"].isna() |(df["DstBytes"] >= 0)
+    )
+
+    valid_same_srv = (
+        df["SameSrvRate"].isna() | df["SameSrvRate"].between(0, 1)
+    )
+
+    valid_error = (
+        df["ErrorRate"].isna() | df["ErrorRate"].between(0, 1)
+    )
+
     df = df[
-        (df["DurationSec"].isna() | (df["DurationSec"] >= 0)) &
-        (df["SrcBytes"].isna() | (df["SrcBytes"] >= 0)) &
-        (df["DstBytes"].isna() | (df["DstBytes"] >= 0)) &
-        (df["SameSrvRate"].isna() |
-         ((df["SameSrvRate"] >= 0) & (df["SameSrvRate"] <= 1))) &
-        (df["ErrorRate"].isna() |
-         ((df["ErrorRate"] >= 0) & (df["ErrorRate"] <= 1)))
+        valid_duration &
+        valid_src &
+        valid_dst &
+        valid_same_srv &
+        valid_error
     ]
 
-    # Numerical columns
-    numerical_cols = [
-        "DurationSec", "SrcBytes", "DstBytes",
-        "FailedLogins", "ConnCount", "SameSrvRate",
-        "ErrorRate"
-    ]
-
-    for col in numerical_cols:
+    # Fill missing numerical values with median
+    for col in fill_num:
         df[col] = df[col].fillna(df[col].median())
 
-    # Categorical columns
-    categorical_cols = ["Protocol", "Service", "Flag"]
-
-    for col in categorical_cols:
+    # Fill missing categorical values with mode
+    for col in cat_cols:
         df[col] = df[col].fillna(df[col].mode()[0])
 
     # Reset index
@@ -67,50 +95,30 @@ def add_features(df):
     return df
 
 
-# Feature columns
-FEATURES = [
-    "DurationSec", "LogSrcBytes", "LogDstBytes",
-    "FailedLogins", "ConnCount", "SameSrvRate",
-    "ErrorRate", "Protocol", "Service", "Flag"
-]
-
-
 # Function 3: Build pipeline
 def build_pipeline(C=1.0, gamma="scale"):
 
-    numerical_features = [
-        "DurationSec", "LogSrcBytes", "LogDstBytes",
-        "FailedLogins", "ConnCount", "SameSrvRate",
-        "ErrorRate"
-    ]
+    preprocessor = ColumnTransformer([
+        ("num", StandardScaler(), num_cols),
+        (
+            "cat",
+            OneHotEncoder(handle_unknown="ignore"),
+            cat_cols
+        )
+    ])
 
-    categorical_features = ["Protocol", "Service", "Flag"]
-
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ("num", StandardScaler(), numerical_features),
-            (
-                "cat",
-                OneHotEncoder(handle_unknown="ignore"),
-                categorical_features
+    pipeline = Pipeline([
+        ("preprocessor", preprocessor),
+        (
+            "model",
+            SVC(
+                kernel="rbf",
+                C=C,
+                gamma=gamma,
+                class_weight="balanced"
             )
-        ]
-    )
-
-    pipeline = Pipeline(
-        steps=[
-            ("preprocessor", preprocessor),
-            (
-                "model",
-                SVC(
-                    kernel="rbf",
-                    C=C,
-                    gamma=gamma,
-                    class_weight="balanced"
-                )
-            )
-        ]
-    )
+        )
+    ])
 
     return pipeline
 
@@ -118,7 +126,7 @@ def build_pipeline(C=1.0, gamma="scale"):
 # Function 4: Split data
 def split_data(df):
 
-    X = df[FEATURES]
+    X = df[num_cols + cat_cols]
 
     y = df["Label"].map({
         "Attack": 1,
@@ -178,13 +186,13 @@ def train_model(X_train, y_train, C, gamma):
 # Function 7: Evaluate model
 def evaluate_model(model, X_test, y_test):
 
-    predictions = model.predict(X_test)
+    y_pred = model.predict(X_test)
 
-    recall = recall_score(y_test, predictions)
+    recall = recall_score(y_test, y_pred)
 
-    f1 = f1_score(y_test, predictions)
+    f1 = f1_score(y_test, y_pred)
 
-    cm = confusion_matrix(y_test, predictions)
+    cm = confusion_matrix(y_test, y_pred)
 
     # False positives: Normal predicted as Attack
     false_positives = int(cm[0, 1])
@@ -206,22 +214,16 @@ def predict_connections(model_path, filepath):
     df = add_features(df)
 
     # Get decision scores
-    scores = model.decision_function(df[FEATURES])
+    scores = model.decision_function(df[num_cols + cat_cols])
 
-    # Predicted labels
     df["AttackScore"] = np.round(scores, 2)
 
-    df["PredictedLabel"] = np.where(
-        scores >= 0,
-        "Attack",
-        "Normal"
-    )
+    # Predicted labels
+    df["PredictedLabel"] = np.where(scores >= 0,"Attack","Normal")
 
-    # Assign alert levels using unrounded scores
-    df["AlertLevel"] = np.where(
-        scores >= 0.5,
-        "Critical",
-        np.where(scores >= -0.5, "Suspicious", "Normal")
+    # Assign alert levels using original scores
+    df["AlertLevel"] = np.where(scores >= 0.5,"Critical",
+        np.where(scores >= -0.5,"Suspicious","Normal")
     )
 
     # Save predictions
@@ -252,15 +254,17 @@ if __name__ == "__main__":
         best_params["gamma"]
     )
 
-    metrics = evaluate_model(model, X_test, y_test)
-
-    print("Evaluation Metrics:", metrics)
+    print(
+        "Evaluation Metrics:",
+        evaluate_model(model, X_test, y_test)
+    )
 
     result = predict_connections(
         "intrusion_model.joblib",
         "live_connections.csv"
     )
 
+    # Count alert levels
     counts = {
         "Critical": int((result["AlertLevel"] == "Critical").sum()),
         "Suspicious": int((result["AlertLevel"] == "Suspicious").sum()),
@@ -271,13 +275,4 @@ if __name__ == "__main__":
 
     print("Top 5 Predictions:")
 
-    print(
-        result[
-            [
-                "ConnectionID",
-                "AttackScore",
-                "PredictedLabel",
-                "AlertLevel"
-            ]
-        ].head(5)
-    )
+    print(result[["ConnectionID","AttackScore","PredictedLabel","AlertLevel"]].head(5))
