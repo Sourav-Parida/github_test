@@ -9,7 +9,7 @@ from tensorflow.keras.layers import Input,Rescaling,Conv2D,MaxPooling2D,Flatten,
 
 
 # 1. Load Fashion MNIST dataset
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data() 
 
 # # 2. Reshape images
 x_train = x_train.reshape(-1, 28, 28, 1)
