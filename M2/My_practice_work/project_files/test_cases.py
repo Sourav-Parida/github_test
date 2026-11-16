@@ -5,6 +5,9 @@ The completed notebook is tested by default. For candidate evaluation,
 set MS2_NOTEBOOK=solution.ipynb (after the candidate fills in the notebook).
 No original CSV files are modified.
 """
+
+
+
 import os
 from pathlib import Path
 from types import ModuleType
@@ -76,12 +79,19 @@ def test_t02_invalid_timestamps_and_weekend(app, tmp_path):
     df.loc[1,"booked_at"]="08/03/2026 09:15"  # Sunday, day-first
     df.loc[2,"booked_at"]="invalid timestamp"
     out=app.load_data(save_frame(tmp_path/"dates.csv",df))
+
+    
     assert len(out)==2 and out["booking_hour"].tolist()==[22,9]
     assert out["is_weekend"].tolist()==[1,1]
 
 
 def test_t03_coerce_raw_numeric(app, tmp_path):
     df=fixture_df(3)
+
+    df["items_count"] =df["items_count"].astype(object)
+    df["hub_queue_minutes"] =df["hub_queue_minutes"].astype(object)
+    df["driver_experience_years"] =df["driver_experience_years"].astype(object)
+
     df.loc[0,"items_count"]="not-a-number"
     df.loc[1,"hub_queue_minutes"]="bad"
     df.loc[2,"driver_experience_years"]="?"
