@@ -1,0 +1,307 @@
+shipment_id,booked_at,dispatch_note,items_count,driver_experience_years,hub_queue_minutes,prior_attempts,promised_hours,service_type,weather_condition,hub_status
+SHP-26-000302,2026-01-26 13:00,zone=REGIONAL; wt=4.07KG; dist=276.5KM,5,6.3,54.5,0,24.0,express,clear,normal
+SHP-26-003421,2026-06-20 23:00,DIST: 324.2 km | WT: 6.17 kg | ZONE: metro,1,5.1,53.4,0,48.0,standard,clear,normal
+SHP-26-005110,2026-01-01 12:00,"dist:158.9 KM, wt:2.67 KG, zone:metro",3,11.7,49.8,0,72.0,economy,rain,congested
+SHP-26-001061,2026-05-05 07:00,DIST: 312.2 km | WT: 3.32 kg | ZONE: metro,6,13.5,39.4,1,48.0,standard,clear,
+SHP-26-002566,2026-08-21 06:00,DIST: 78.1 km | WT: 2.17 kg | ZONE: remote,3,13.0,55.6,0,48.0,standard,clear,normal
+SHP-26-005293,2026-03-28 07:00, Dist = 548.8km ; Zone = regional ; Wt = 14.28 kg ,4,5.0,28.5,0,48.0,standard,fog,normal
+SHP-26-001070,2026-08-13 09:00,"dist:162.6 KM, wt:0.91 KG, zone:regional",2,4.6,36.1,0,48.0,standard,clear,normal
+SHP-26-002525,2026-07-31 14:00,"dist:142.7 KM, wt:0.71 KG, zone:regional",4,8.3,,0,72.0,economy,rain,normal
+SHP-26-002206,2026-06-29 21:00,DIST: 204.7 km | WT: 2.63 kg | ZONE: regional,2,4.7,71.3,0,48.0,standard,rain,normal
+SHP-26-001244,2026-04-19 06:00,WT:3.43 kg | ZONE:metro | DIST:330.4 km,8,0.8,66.8,1,48.0,standard,fog,normal
+SHP-26-000017,2026-06-14 21:00,zone=REMOTE; wt=1.04KG; dist=197.3KM,4,8.6,49.4,1,24.0,express,clear,normal
+SHP-26-003121,2026-04-05 17:00,DIST: 380.5 km | WT: 0.6 kg | ZONE: metro,3,4.4,46.8,0,48.0,standard,fog,congested
+SHP-26-004643,2026-07-25 20:00, Dist = 244.5km ; Zone = remote ; Wt = 4.88 kg ,3,7.3,20.0,1,72.0,economy,clear,normal
+SHP-26-004755,2026-07-11 18:00,"dist:409.6 KM, wt:0.72 KG, zone:metro",6,12.0,14.3,0,72.0,economy,clear,normal
+SHP-26-000816,2026-03-13 14:00,DIST: 110.1 km | WT: 3.63 kg | ZONE: regional,5,9.0,11.8,0,48.0,standard,clear,normal
+SHP-26-003068,2026-07-01 17:00, Dist = 322.5km ; Zone = metro ; Wt = 0.2 kg ,4,12.0,18.6,0,24.0,express,clear,normal
+SHP-26-005073,2026-08-20 16:00, Dist = 158.9km ; Zone = metro ; Wt = 3.36 kg ,2,4.3,44.3,1,48.0,standard,clear,congested
+SHP-26-000960,2026-07-16 16:00,"dist:159.9 KM, wt:1.79 KG, zone:metro",3,10.6,27.9,0,48.0,standard,clear,normal
+SHP-26-004894,2026-06-04 09:00,WT:1.39 kg | ZONE:remote | DIST:210.6 km,4,4.3,54.0,0,48.0,standard,clear,normal
+SHP-26-000226,2026-04-19 05:00,DIST: 170.1 km | WT: 1.76 kg | ZONE: metro,2,1.7,58.7,0,48.0,standard,storm,normal
+SHP-26-003355,2026-05-29 13:00,"dist:212.6 KM, wt:1.92 KG, zone:regional",3,9.4,28.6,1,48.0,standard,clear,normal
+SHP-26-002486,2026-08-08 01:00,DIST: 104.9 km | WT: 1.44 kg | ZONE: metro,8,8.5,14.6,0,72.0,economy,rain,normal
+SHP-26-000563,2026-07-24 04:00, Dist = 439.6km ; Zone = metro ; Wt = 1.82 kg ,5,0.7,24.0,0,72.0,economy,clear,normal
+SHP-26-003437,2026-03-14 10:00,zone=METRO; wt=2.54KG; dist=36.5KM,3,1.4,34.9,1,48.0,standard,clear,normal
+SHP-26-001694,2026-01-04 19:00,WT:0.33 kg | ZONE:regional | DIST:135.4 km,3,10.6,99.5,2,48.0,standard,clear,normal
+SHP-26-001046,2026-01-31 16:00,DIST: 111.9 km | WT: 1.74 kg | ZONE: remote,4,13.4,73.1,0,72.0,economy,clear,normal
+SHP-26-003447,2026-07-11 08:00,zone=METRO; wt=2.13KG; dist=136.4KM,6,9.9,28.3,1,72.0,economy,clear,normal
+SHP-26-004566,2026-05-19 00:00,DIST: 278.1 km | WT: 0.4 kg | ZONE: metro,1,3.0,47.5,2,48.0,standard,clear,normal
+SHP-26-000955,2026-07-02 12:00,"dist:154.1 KM, wt:0.64 KG, zone:regional",4,11.4,23.1,0,24.0,express,clear,normal
+SHP-26-005283,11/02/2026 08:00, Dist = 106.0km ; Zone = regional ; Wt = 2.24 kg ,8,5.5,42.4,1,48.0,standard,clear,normal
+SHP-26-002736,2026-03-08 18:00,DIST: 386.3 km | WT: 1.15 kg | ZONE: metro,2,1.4,34.8,0,48.0,standard,clear,normal
+SHP-26-005200,2026-04-21 16:00,"dist:159.4 KM, wt:2.15 KG, zone:metro",8,11.4,25.6,0,48.0,standard,fog,congested
+SHP-26-004736,2026-04-12 07:00,DIST: 209.6 km | WT: 1.1 kg | ZONE: regional,5,9.5,48.2,1,48.0,standard,rain,normal
+SHP-26-005113,2026-01-16 10:00, Dist = 127.1km ; Zone = remote ; Wt = 0.89 kg ,4,7.2,,0,48.0,standard,clear,congested
+SHP-26-001219,2026-04-01 22:00,WT:1.17 kg | ZONE:regional | DIST:323.5 km,6,1.9,27.2,0,72.0,economy,clear,congested
+SHP-26-001528,2026-01-17 22:00, Dist = 358.5km ; Zone = regional ; Wt = 2.73 kg ,2,11.6,18.6,1,24.0,express,rain,normal
+SHP-26-003988,2026-06-12 12:00, Dist = 141.1km ; Zone = regional ; Wt = 0.97 kg ,2,7.5,22.1,0,72.0,economy,rain,normal
+SHP-26-005229,2026-07-08 16:00,WT:1.73 kg | ZONE:metro | DIST:229.5 km,4,0.5,75.4,0,48.0,standard,clear,normal
+SHP-26-001301,2026-04-01 15:00,DIST: 133.6 km | WT: 3.39 kg | ZONE: regional,7,6.0,49.1,0,48.0,standard,clear,normal
+SHP-26-005187,2026-06-17 06:00,zone=REMOTE; wt=2.82KG; dist=77.8KM,5,4.6,38.8,0,48.0,standard,rain,normal
+SHP-26-000161,2026-04-20 21:00,DIST: 262.5 km | WT: 4.12 kg | ZONE: metro,2,6.6,17.4,0,48.0,standard,fog,normal
+SHP-26-004068,2026-03-26 11:00, Dist = 97.4km ; Zone = regional ; Wt = 1.32 kg ,5,2.1,42.8,0,48.0,standard,clear,restricted
+SHP-26-000957,2026-03-20 00:00,zone=REGIONAL; wt=1.04KG; dist=148.5KM,1,0.3,88.9,1,24.0,express,fog,normal
+SHP-26-003792,2026-03-01 06:00,zone=METRO; wt=1.7KG; dist=95.2KM,3,4.9,32.0,1,48.0,standard,rain,normal
+SHP-26-003235,2026-03-28 17:00,"dist:223.6 KM, wt:2.17 KG, zone:remote",2,11.2,54.8,0,48.0,standard,rain,normal
+SHP-26-002870,2026-07-16 06:00,"dist:212.7 KM, wt:0.41 KG, zone:metro",6,0.1,56.7,0,24.0,express,clear,congested
+SHP-26-003778,2026-08-25 17:00, Dist = 130.6km ; Zone = metro ; Wt = 1.42 kg ,8,3.9,75.5,0,48.0,standard,storm,normal
+SHP-26-004434,2026-01-12 23:00,WT:1.7 kg | ZONE:metro | DIST:325.5 km,3,0.3,39.6,0,72.0,economy,clear,normal
+SHP-26-004974,2026-05-30 15:00,WT:5.07 kg | ZONE:regional | DIST:75.2 km,5,2.8,96.7,0,48.0,standard,clear,congested
+SHP-26-002962,2026-08-01 07:00,zone=REGIONAL; wt=2.53KG; dist=89.2KM,1,2.8,16.4,0,72.0,economy,fog,normal
+SHP-26-002201,2026-04-13 06:00,DIST: 136.1 km | WT: 1.25 kg | ZONE: metro,3,6.1,17.5,0,72.0,economy,fog,congested
+SHP-26-000099,2026-05-16 01:00,WT:0.43 kg | ZONE:remote | DIST:84.3 km,4,1.6,66.1,1,48.0,standard,clear,normal
+SHP-26-002558,2026-02-13 20:00, Dist = 50.7km ; Zone = regional ; Wt = 1.18 kg ,7,10.8,49.3,0,48.0,standard,clear,normal
+SHP-26-003184,2026-06-05 13:00,WT:3.28 kg | ZONE:regional | DIST:85.8 km,5,5.4,41.2,0,48.0,standard,storm,congested
+SHP-26-000254,2026-06-17 17:00,WT:3.93 kg | ZONE:metro | DIST:91.8 km,1,8.3,18.2,0,48.0,standard,rain,normal
+SHP-26-003924,2026-02-20 19:00,WT:0.75 kg | ZONE:metro | DIST:70.9 km,8,1.9,13.0,0,48.0,standard,clear,normal
+SHP-26-004200,2026-06-07 07:00,"dist:76.6 KM, wt:1.59 KG, zone:regional",5,1.6,79.3,0,48.0,standard,rain,normal
+SHP-26-001446,2026-04-15 08:00,DIST: 279.7 km | WT: 0.6 kg | ZONE: metro,2,10.4,10.4,0,48.0,standard,clear,normal
+SHP-26-001649,2026-03-12 00:00,WT:1.91 kg | ZONE:metro | DIST:128.0 km,1,9.6,35.9,1,24.0,express,clear,normal
+SHP-26-004683,2026-04-16 02:00, Dist = 150.3km ; Zone = regional ; Wt = 0.82 kg ,1,3.0,17.0,0,72.0,economy,rain,normal
+SHP-26-004724,2026-06-01 16:00,WT:4.4 kg | ZONE:metro | DIST:185.0 km,3,5.0,48.4,0,48.0,standard,rain,normal
+SHP-26-003992,2026-01-24 00:00,zone=REGIONAL; wt=0.66KG; dist=168.0KM,1,7.4,68.5,0,24.0,express,fog,congested
+SHP-26-001697,2026-03-21 01:00,zone=METRO; wt=5.15KG; dist=322.9KM,2,11.9,77.5,0,48.0,standard,clear,congested
+SHP-26-003192,2026-05-24 22:00,zone=METRO; wt=0.64KG; dist=247.9KM,3,8.6,15.4,1,72.0,economy,rain,normal
+SHP-26-004500,2026-04-24 20:00,"dist:173.7 KM, wt:1.22 KG, zone:remote",1,3.6,15.9,0,24.0,express,clear,normal
+SHP-26-001155,2026-02-05 04:00,"dist:80.7 KM, wt:1.36 KG, zone:remote",3,5.2,35.8,0,24.0,express,rain,
+SHP-26-002256,2026-05-31 00:00,DIST: 125.0 km | WT: 5.33 kg | ZONE: remote,5,5.2,20.4,0,72.0,economy,clear,normal
+SHP-26-001683,2026-06-13 17:00, Dist = 37.8km ; Zone = regional ; Wt = 2.79 kg ,3,5.2,9.0,2,24.0,express,clear,normal
+SHP-26-003171,2026-08-16 20:00,DIST: 264.6 km | WT: 1.1 kg | ZONE: regional,2,6.1,46.9,0,48.0,standard,clear,congested
+SHP-26-002057,2026-02-01 21:00,zone=REGIONAL; wt=2.14KG; dist=21.5KM,4,3.1,14.1,2,48.0,standard,fog,normal
+SHP-26-004091,2026-06-19 15:00,DIST: 431.9 km | WT: 2.89 kg | ZONE: remote,5,1.4,45.0,0,48.0,standard,storm,normal
+SHP-26-003109,2026-01-20 02:00,WT:2.34 kg | ZONE:regional | DIST:484.8 km,7,8.1,32.0,0,72.0,economy,fog,normal
+SHP-26-004549,2026-06-21 10:00,WT:2.37 kg | ZONE:metro | DIST:113.6 km,7,4.1,38.0,0,24.0,express,rain,congested
+SHP-26-003724,2026-06-12 17:00,WT:0.96 kg | ZONE:remote | DIST:116.5 km,4,11.4,27.4,0,48.0,standard,rain,normal
+SHP-26-002050,15/07/2026 15:00,"dist:314.9 KM, wt:1.53 KG, zone:metro",7,12.6,18.9,0,72.0,economy,clear,normal
+SHP-26-004977,2026-01-20 11:00,zone=REGIONAL; wt=2.37KG; dist=75.8KM,2,4.4,13.8,2,24.0,express,clear,normal
+SHP-26-003644,2026-04-22 10:00,WT:1.98 kg | ZONE:metro | DIST:84.0 km,7,12.5,37.7,0,48.0,standard,clear,congested
+SHP-26-005224,2026-04-18 02:00,WT:2.57 kg | ZONE:metro | DIST:293.8 km,3,3.2,21.9,0,48.0,standard,clear,congested
+SHP-26-000624,2026-05-27 12:00,WT:4.56 kg | ZONE:regional | DIST:228.4 km,2,4.6,37.0,0,48.0,standard,storm,normal
+SHP-26-000263,2026-03-09 07:00, Dist = 221.8km ; Zone = metro ; Wt = 0.43 kg ,2,4.2,36.8,0,48.0,standard, RAIN ,normal
+SHP-26-003370,2026-01-17 13:00,"dist:168.1 KM, wt:0.83 KG, zone:metro",4,6.8,40.9,0,72.0,economy,fog,congested
+SHP-26-004062,2026-01-08 21:00,zone=REMOTE; wt=4.29KG; dist=125.7KM,5,6.4,57.8,1,48.0,standard,clear,normal
+SHP-26-001803,2026-04-16 02:00, Dist = 139.9km ; Zone = remote ; Wt = 2.8 kg ,4,2.4,47.8,0,48.0,standard,clear,normal
+SHP-26-004737,2026-01-21 12:00,zone=REGIONAL; wt=4.9KG; dist=25.6KM,7,6.8,16.3,1,72.0,economy,clear,congested
+SHP-26-005291,2026-06-05 17:00,DIST: 89.2 km | WT: 2.41 kg | ZONE: metro,3,10.0,55.6,0,48.0,standard,clear,normal
+SHP-26-002386,2026-05-27 02:00,DIST: 442.6 km | WT: 1.89 kg | ZONE: regional,7,11.3,47.1,1,48.0,standard,clear,congested
+SHP-26-001960,2026-01-02 17:00,"dist:348.2 KM, wt:0.35 KG, zone:remote",5,5.9,29.5,1,48.0,standard,clear,normal
+SHP-26-002977,2026-05-18 17:00,zone=METRO; wt=1.5KG; dist=197.1KM,8,7.6,72.5,0,48.0,standard,rain,normal
+SHP-26-000489,2026-05-26 16:00,WT:6.25 kg | ZONE:metro | DIST:147.5 km,5,bad_sensor,36.8,0,48.0,standard,fog,normal
+SHP-26-001844,2026-03-14 07:00,WT:2.2 kg | ZONE:metro | DIST:152.7 km,5,6.3,5.6,0,48.0,standard,clear,congested
+SHP-26-001735,2026-07-27 05:00,"dist:243.4 KM, wt:2.84 KG, zone:metro",2,7.1,48.4,1,72.0,economy,rain,normal
+SHP-26-002912,2026-07-06 18:00,zone=REMOTE; wt=0.66KG; dist=99.7KM,4,1.5,132.3,1,48.0,standard,clear,normal
+SHP-26-003220,2026-01-09 21:00,"dist:309.7 KM, wt:1.36 KG, zone:metro",7,11.6,53.2,1,72.0,economy,fog,normal
+SHP-26-000147,2026-07-08 22:00,zone=REGIONAL; wt=1.53KG; dist=109.5KM,2,2.6,12.5,0,48.0,standard,fog,normal
+SHP-26-001987,2026-07-23 17:00,zone=REGIONAL; wt=3.72KG; dist=93.6KM,4,5.1,25.9,1,48.0,standard,clear,normal
+SHP-26-001370,2026-04-25 23:00,"dist:176.8 KM, wt:3.78 KG, zone:metro",1,3.1,81.0,0,72.0,economy,clear,congested
+SHP-26-002812,2026-04-13 05:00,zone=METRO; wt=3.15KG; dist=338.0KM,8,8.8,46.1,1,72.0,economy,rain,restricted
+SHP-26-000660,2026-07-20 23:00,"dist:48.9 KM, wt:1.27 KG, zone:metro",7,5.7,106.1,0,48.0,standard,rain,normal
+SHP-26-001795,2026-05-19 10:00,"dist:381.0 KM, wt:2.4 KG, zone:regional",8,12.2,27.6,0,48.0,standard,storm,normal
+SHP-26-002512,2026-05-22 20:00,zone=REMOTE; wt=1.42KG; dist=424.9KM,5,10.6,11.8,0,48.0,standard,clear,normal
+SHP-26-003398,2026-01-29 19:00, Dist = 136.6km ; Zone = metro ; Wt = 1.24 kg ,1,0.5,54.4,0,24.0,express,clear,normal
+SHP-26-004283,2026-01-04 23:00, Dist = 266.2km ; Zone = remote ; Wt = 3.72 kg ,5,bad_sensor,10.2,0,48.0,standard,rain,congested
+SHP-26-001148,2026-01-01 15:00, Dist = 266.6km ; Zone = metro ; Wt = 1.09 kg ,6,13.2,42.7,0,24.0,express,clear,normal
+SHP-26-003273,2026-07-03 21:00, Dist = 103.5km ; Zone = metro ; Wt = 1.48 kg ,4,2.8,3.3,0,48.0,standard,clear,congested
+SHP-26-000609,2026-07-15 18:00,WT:1.17 kg | ZONE:metro | DIST:175.1 km,2,4.0,13.2,0,48.0,standard,fog,normal
+SHP-26-003583,2026-07-02 22:00, Dist = 145.4km ; Zone = metro ; Wt = 1.49 kg ,8,12.1,51.7,1,72.0,economy,clear,normal
+SHP-26-001931,2026-03-12 23:00,DIST: 187.1 km | WT: 4.07 kg | ZONE: regional,5,6.0,71.8,0,72.0,economy,storm,normal
+SHP-26-000198,2026-08-17 21:00, Dist = 248.8km ; Zone = regional ; Wt = 2.16 kg ,7,5.5,53.5,0,48.0,standard,clear,congested
+SHP-26-002932,2026-07-23 09:00,zone=METRO; wt=1.12KG; dist=343.5KM,8,9.7,42.3,0,72.0,economy,clear,normal
+SHP-26-002328,2026-08-04 00:00, Dist = 239.6km ; Zone = metro ; Wt = 1.77 kg ,3,0.5,46.2,0,24.0,express,clear,normal
+SHP-26-004390,2026-02-10 19:00,"dist:268.1 KM, wt:2.55 KG, zone:regional",6,12.3,32.1,3,48.0,standard,clear,normal
+SHP-26-000767,2026-07-11 08:00,zone=REGIONAL; wt=0.92KG; dist=425.0KM,3,9.8,60.9,2,72.0,economy,clear,normal
+SHP-26-004497,2026-01-21 08:00,zone=REGIONAL; wt=1.97KG; dist=161.4KM,4,10.5,65.4,0,48.0,standard,clear,normal
+SHP-26-004219,2026-04-26 14:00,WT:1.7 kg | ZONE:metro | DIST:17.7 km,7,13.0,49.7,0,48.0,standard,clear,congested
+SHP-26-003256,2026-04-21 20:00,ZONE=regional; DIST=unknown; WT=unknown,1,4.6,38.5,0,48.0,standard,fog,restricted
+SHP-26-000203,2026-05-16 10:00, Dist = 219.9km ; Zone = metro ; Wt = 0.85 kg ,4,2.4,16.6,0,48.0,standard,clear,normal
+SHP-26-003511,2026-06-26 12:00,DIST: 111.7 km | WT: 2.81 kg | ZONE: metro,2,2.6,10.2,3,72.0,economy,clear,normal
+SHP-26-004932,2026-01-14 04:00,zone=METRO; wt=0.35KG; dist=456.0KM,2,9.1,48.9,0,48.0,standard,rain,normal
+SHP-26-001734,2026-03-18 04:00,WT:0.64 kg | ZONE:remote | DIST:567.3 km,7,bad_sensor,28.5,0,72.0,economy,rain,normal
+SHP-26-002778,2026-05-27 01:00, Dist = 271.5km ; Zone = metro ; Wt = 4.28 kg ,2,2.4,23.6,0,24.0,express,clear,normal
+SHP-26-001708,2026-03-16 12:00, Dist = 211.9km ; Zone = regional ; Wt = 3.83 kg ,6,8.1,68.0,1,48.0,standard,rain,normal
+SHP-26-003475,2026-04-07 08:00,"dist:158.6 KM, wt:1.48 KG, zone:remote",5,5.9,20.9,0,24.0,express,rain,normal
+SHP-26-000855,2026-06-12 21:00,"dist:139.4 KM, wt:3.67 KG, zone:regional",2,11.9,11.2,0,48.0,standard,fog,normal
+SHP-26-004738,2026-03-21 22:00, Dist = 176.8km ; Zone = remote ; Wt = 5.13 kg ,8,0.5,18.0,0,48.0,standard,clear,normal
+SHP-26-004098,2026-03-06 00:00, Dist = 412.0km ; Zone = regional ; Wt = 1.59 kg ,8,0.3,14.7,1,24.0,express,clear,normal
+SHP-26-002161,2026-03-01 15:00,DIST: 32.9 km | WT: 0.51 kg | ZONE: metro,7,12.7,58.4,1,72.0,economy,clear,congested
+SHP-26-000699,2026-04-22 04:00,WT:2.3 kg | ZONE:metro | DIST:175.4 km,6,12.9,92.1,0,48.0,standard,clear,normal
+SHP-26-005245,2026-02-19 08:00,"dist:10.3 KM, wt:0.98 KG, zone:remote",2,5.3,35.6,0,48.0,standard,rain,
+SHP-26-003000,2026-05-08 22:00,"dist:25.1 KM, wt:3.07 KG, zone:metro",7,8.9,23.8,2,48.0,standard,clear,normal
+SHP-26-003697,2026-02-02 18:00,zone=METRO; wt=4.22KG; dist=29.8KM,6,5.0,32.7,1,48.0,standard,clear,normal
+SHP-26-001637,2026-06-19 09:00,zone=REMOTE; wt=0.62KG; dist=102.4KM,3,1.7,28.0,2,24.0,express,clear,normal
+SHP-26-003458,2026-02-10 18:00, Dist = 205.0km ; Zone = remote ; Wt = 0.98 kg ,7,3.5,3.2,1,48.0,standard,storm,normal
+SHP-26-003582,2026-07-28 21:00,zone=METRO; wt=1.0KG; dist=105.8KM,4,12.8,45.8,0,24.0,express,fog,normal
+SHP-26-001292,2026-04-27 05:00,zone=METRO; wt=1.61KG; dist=370.8KM,4,5.3,11.5,0,48.0,standard,rain,congested
+SHP-26-004660,2026-05-05 19:00,"dist:212.8 KM, wt:0.63 KG, zone:remote",5,9.6,16.9,0,24.0,express,clear,normal
+SHP-26-001854,2026-04-10 00:00,WT:0.35 kg | ZONE:metro | DIST:99.4 km,1,8.1,30.0,0,48.0,standard,fog,normal
+SHP-26-003764,2026-05-15 16:00,WT:1.56 kg | ZONE:remote | DIST:199.4 km,7,2.6,58.4,0,24.0,express,fog,normal
+SHP-26-003305,2026-08-19 04:00,"dist:117.0 KM, wt:4.55 KG, zone:metro",4,8.1,45.1,2,24.0,express,clear,normal
+SHP-26-005209,2026-03-06 15:00,WT:1.38 kg | ZONE:regional | DIST:212.0 km,6,5.3,40.0,0,48.0,standard,clear,normal
+SHP-26-003744,2026-07-07 15:00,WT:0.81 kg | ZONE:regional | DIST:126.3 km,4,9.0,16.7,0,48.0,standard,rain,normal
+SHP-26-003446,2026-07-31 09:00,DIST: 272.2 km | WT: 2.76 kg | ZONE: metro,4,9.3,9.6,0,48.0,standard,clear,normal
+SHP-26-001999,2026-05-05 02:00,WT:1.77 kg | ZONE:regional | DIST:112.2 km,3,8.1,24.8,0,72.0,economy,rain,normal
+SHP-26-000664,2026-02-04 22:00,WT:5.82 kg | ZONE:regional | DIST:343.5 km,5,6.3,41.8,0,48.0,standard,rain,normal
+SHP-26-004780,2026-01-02 22:00,"dist:62.9 KM, wt:0.49 KG, zone:remote",1,4.6,91.8,0,72.0,economy,clear,normal
+SHP-26-003749,2026-07-06 22:00,WT:3.63 kg | ZONE:metro | DIST:199.9 km,3,8.7,41.9,1,24.0,express,clear,congested
+SHP-26-004414,2026-08-10 06:00,WT:0.84 kg | ZONE:metro | DIST:285.6 km,3,3.8,27.4,2,24.0,express,clear,normal
+SHP-26-004745,2026-07-26 19:00,"dist:206.0 KM, wt:0.7 KG, zone:metro",6,9.6,23.3,0,72.0,economy,storm,restricted
+SHP-26-000710,2026-03-27 21:00,"dist:307.9 KM, wt:1.17 KG, zone:metro",8,2.4,12.3,0,24.0,express,rain,congested
+SHP-26-001283,2026-05-14 02:00, Dist = 125.0km ; Zone = remote ; Wt = 1.35 kg ,7,5.5,35.7,0,72.0,economy,rain,normal
+SHP-26-005069,2026-07-24 04:00,WT:0.96 kg | ZONE:regional | DIST:452.7 km,8,6.2,24.2,0,48.0,standard,clear,normal
+SHP-26-002676,2026-05-17 08:00,DIST: 81.3 km | WT: 4.0 kg | ZONE: remote,3,12.9,32.8,1,48.0,standard,clear,normal
+SHP-26-004030,2026-05-19 06:00,"dist:431.8 KM, wt:1.07 KG, zone:metro",6,12.6,50.2,1,48.0,standard, RAIN ,restricted
+SHP-26-001307,2026-05-06 02:00,zone=REGIONAL; wt=2.25KG; dist=93.8KM,3,12.6,33.9,0,48.0,standard,rain,normal
+SHP-26-002238,2026-07-07 22:00, Dist = 286.9km ; Zone = remote ; Wt = 0.8 kg ,3,0.2,70.5,0,24.0,express,storm,congested
+SHP-26-003303,02/01/2026 11:00, Dist = 224.6km ; Zone = regional ; Wt = 1.56 kg ,5,1.2,20.9,0,24.0,express,clear,normal
+SHP-26-002039,2026-03-12 22:00,WT:10.9 kg | ZONE:metro | DIST:71.7 km,4,6.1,61.7,0,48.0,standard,clear,congested
+SHP-26-001530,2026-03-14 20:00,"dist:323.5 KM, wt:0.7 KG, zone:regional",7,12.7,58.0,0,72.0,economy,clear,normal
+SHP-26-001664,2026-04-12 22:00,WT:0.97 kg | ZONE:metro | DIST:67.6 km,2,5.4,24.3,0,48.0,standard,clear,normal
+SHP-26-005231,2026-02-04 00:00,DIST: 471.6 km | WT: 1.41 kg | ZONE: remote,7,1.3,123.5,0,48.0,standard,clear,normal
+SHP-26-005251,2026-08-27 16:00,DIST: 738.3 km | WT: 0.53 kg | ZONE: metro,3,9.7,17.6,1,48.0,standard,fog,normal
+SHP-26-003628,2026-01-10 11:00, Dist = 672.5km ; Zone = metro ; Wt = 0.7 kg ,8,12.3,37.0,0,48.0,standard,clear,normal
+SHP-26-005148,2026-05-14 18:00, Dist = 106.8km ; Zone = remote ; Wt = 0.61 kg ,6,6.5,10.1,0,24.0,express,fog,congested
+SHP-26-004892,2026-04-22 02:00,zone=METRO; wt=1.11KG; dist=263.2KM,8,4.3,44.1,0,72.0,economy,fog,normal
+SHP-26-002694,2026-01-14 02:00,WT:1.74 kg | ZONE:metro | DIST:461.9 km,6,2.8,,0,72.0,economy,clear,normal
+SHP-26-003061,2026-06-05 16:00,DIST: 214.0 km | WT: 1.07 kg | ZONE: metro,2,8.3,45.7,1,48.0,standard,storm,
+SHP-26-001598,2026-05-17 03:00, Dist = 87.4km ; Zone = metro ; Wt = 3.66 kg ,6,5.8,34.1,0,72.0,economy,rain,normal
+SHP-26-002730,2026-03-19 03:00,"dist:170.3 KM, wt:0.31 KG, zone:metro",2,6.5,64.8,0,48.0,standard,clear,congested
+SHP-26-002626,2026-07-31 17:00,DIST: 353.3 km | WT: 0.94 kg | ZONE: metro,7,9.9,93.5,0,24.0,express,clear,normal
+SHP-26-003158,2026-04-05 05:00, Dist = 263.0km ; Zone = remote ; Wt = 1.18 kg ,2,bad_sensor,55.7,2,48.0,standard,storm,normal
+SHP-26-003315,2026-03-24 11:00,"dist:282.1 KM, wt:0.91 KG, zone:metro",1,8.2,33.0,0,72.0,economy,clear,normal
+SHP-26-001723,2026-06-13 00:00, Dist = 614.1km ; Zone = metro ; Wt = 2.71 kg ,4,5.1,30.2,0,72.0,economy,clear,normal
+SHP-26-001060,2026-03-01 07:00,"dist:238.6 KM, wt:3.75 KG, zone:metro",8,1.6,3.4,1,48.0,standard,fog,normal
+SHP-26-004637,2026-05-30 05:00,zone=METRO; wt=2.4KG; dist=136.1KM,1,9.1,12.8,0,48.0,standard,clear,normal
+SHP-26-003243,2026-08-03 10:00, Dist = 178.5km ; Zone = regional ; Wt = 0.66 kg ,2,11.1,25.5,0,72.0,economy,rain,normal
+SHP-26-001679,2026-06-12 04:00,WT:0.82 kg | ZONE:metro | DIST:64.2 km,8,12.5,19.9,0,48.0,standard,clear,normal
+SHP-26-001758,2026-04-14 08:00, Dist = 120.1km ; Zone = regional ; Wt = 2.2 kg ,1,7.3,29.1,0,72.0,economy,rain,congested
+SHP-26-004192,2026-06-02 21:00,zone=METRO; wt=1.82KG; dist=183.7KM,1,13.3,88.8,0,72.0,economy,rain,normal
+SHP-26-005117,2026-05-07 10:00,zone=REGIONAL; wt=2.26KG; dist=142.6KM,7,2.2,43.4,0,72.0,economy,fog,restricted
+SHP-26-000564,2026-01-05 21:00,WT:2.93 kg | ZONE:metro | DIST:310.4 km,8,8.1,36.2,0,48.0,standard,clear,congested
+SHP-26-002791,2026-08-02 21:00,DIST: 168.8 km | WT: 7.35 kg | ZONE: metro,7,0.6,34.7,2,48.0,standard,fog,congested
+SHP-26-000864,2026-08-07 20:00,WT:3.46 kg | ZONE:regional | DIST:244.3 km,3,4.2,22.5,0,72.0,economy,clear,normal
+SHP-26-001485,2026-04-03 21:00,"dist:353.2 KM, wt:0.63 KG, zone:remote",4,6.1,37.9,0,48.0,standard,clear,normal
+SHP-26-005135,2026-07-04 08:00,"dist:234.8 KM, wt:1.45 KG, zone:regional",4,7.1,23.2,0,48.0,standard,clear,normal
+SHP-26-000207,2026-03-21 07:00,zone=REMOTE; wt=3.22KG; dist=564.1KM,6,10.2,40.1,0,48.0,standard,storm,congested
+SHP-26-004489,2026-01-13 05:00,WT:0.91 kg | ZONE:remote | DIST:347.7 km,7,6.8,13.0,0,72.0,economy,clear,normal
+SHP-26-000871,2026-07-07 22:00,DIST: 40.8 km | WT: 1.49 kg | ZONE: regional,5,10.3,105.2,1,24.0,  EXPRESS  ,clear,normal
+SHP-26-004494,2026-05-01 10:00,WT:5.22 kg | ZONE:metro | DIST:149.3 km,7,7.1,23.1,1,48.0,standard,clear,normal
+SHP-26-000503,2026-01-16 10:00, Dist = 151.5km ; Zone = regional ; Wt = 4.52 kg ,4,3.4,37.8,2,48.0,standard,clear,normal
+SHP-26-001029,2026-03-14 08:00,WT:3.62 kg | ZONE:regional | DIST:167.1 km,7,2.3,32.5,0,48.0,standard,clear,restricted
+SHP-26-003841,2026-05-17 12:00,DIST: 153.4 km | WT: 0.54 kg | ZONE: regional,6,8.7,49.2,2,24.0,express,rain,normal
+SHP-26-002691,2026-07-12 20:00,DIST: 168.1 km | WT: 2.97 kg | ZONE: metro,1,8.9,36.6,0,48.0,standard,clear,normal
+SHP-26-005057,2026-05-26 13:00,zone=REGIONAL; wt=1.36KG; dist=636.2KM,6,3.5,,0,48.0,standard,clear,normal
+SHP-26-001571,2026-06-21 07:00,DIST: 276.7 km | WT: 1.93 kg | ZONE: regional,4,1.7,31.5,0,48.0,standard,clear,restricted
+SHP-26-002774,2026-02-12 15:00,WT:8.08 kg | ZONE:metro | DIST:259.6 km,2,5.9,34.2,2,48.0,standard,rain,congested
+SHP-26-002732,2026-06-20 11:00,zone=REMOTE; wt=9.47KG; dist=69.9KM,6,7.5,84.2,0,48.0,standard,rain,congested
+SHP-26-000805,2026-04-29 06:00,"dist:151.9 KM, wt:1.71 KG, zone:metro",3,8.6,43.8,0,48.0,standard,rain,normal
+SHP-26-003646,2026-05-18 17:00,DIST: 139.7 km | WT: 1.29 kg | ZONE: metro,1,11.1,17.0,0,72.0,economy,clear,normal
+SHP-26-002455,2026-05-02 20:00,"dist:94.2 KM, wt:2.38 KG, zone:metro",3,12.7,30.9,0,48.0,standard,clear,congested
+SHP-26-004599,2026-02-04 14:00,WT:2.25 kg | ZONE:regional | DIST:209.6 km,6,12.8,22.5,0,72.0,economy,fog,congested
+SHP-26-003105,2026-04-03 11:00,"dist:67.5 KM, wt:2.66 KG, zone:metro",2,13.4,24.1,0,72.0,economy,rain,normal
+SHP-26-004876,2026-06-24 15:00,DIST: 142.3 km | WT: 0.6 kg | ZONE: remote,6,4.4,8.8,2,48.0,standard,clear,normal
+SHP-26-000201,2026-07-17 01:00,DIST: 90.4 km | WT: 0.21 kg | ZONE: metro,8,9.0,31.7,0,48.0,standard,clear,normal
+SHP-26-003100,2026-05-16 05:00,"dist:147.5 KM, wt:9.07 KG, zone:metro",3,0.5,139.9,0,48.0,standard,rain,normal
+SHP-26-002279,2026-04-25 05:00,WT:1.54 kg | ZONE:regional | DIST:107.7 km,8,7.1,66.7,0,72.0,economy,clear,normal
+SHP-26-003562,2026-02-05 01:00,zone=METRO; wt=0.73KG; dist=211.9KM,6,6.9,38.2,0,72.0,economy,clear,normal
+SHP-26-004475,2026-07-01 02:00,"dist:302.4 KM, wt:0.45 KG, zone:metro",3,4.2,12.8,0,48.0,standard,clear,normal
+SHP-26-004515,2026-07-01 01:00,"dist:222.7 KM, wt:1.79 KG, zone:metro",4,2.9,88.7,0,48.0,standard,clear,normal
+SHP-26-000392,2026-03-09 05:00,zone=REGIONAL; wt=1.72KG; dist=75.7KM,2,7.6,63.1,0,72.0,economy,clear,congested
+SHP-26-001496,2026-06-07 23:00,DIST: 76.3 km | WT: 3.36 kg | ZONE: regional,8,6.1,73.6,0,48.0,standard,clear,normal
+SHP-26-002696,2026-08-09 10:00,DIST: 107.0 km | WT: 2.56 kg | ZONE: regional,1,4.3,36.2,1,48.0,standard,clear,normal
+SHP-26-002028,2026-01-01 15:00, Dist = 559.1km ; Zone = regional ; Wt = 0.78 kg ,3,10.4,16.3,0,72.0,economy,clear,normal
+SHP-26-002569,2026-07-01 15:00,WT:2.31 kg | ZONE:remote | DIST:200.3 km,3,10.0,48.3,0,48.0,standard,clear,restricted
+SHP-26-000065,2026-01-12 15:00,"dist:140.6 KM, wt:2.15 KG, zone:metro",7,9.3,134.6,0,48.0,standard,storm,congested
+SHP-26-003885,2026-04-08 08:00,"dist:20.1 KM, wt:5.3 KG, zone:regional",4,4.7,69.2,0,72.0,economy,clear,congested
+SHP-26-002063,2026-05-16 22:00, Dist = 100.0km ; Zone = regional ; Wt = 6.59 kg ,3,11.0,56.6,0,48.0,standard,rain,normal
+SHP-26-000493,2026-04-22 10:00, Dist = 341.2km ; Zone = regional ; Wt = 3.28 kg ,1,12.5,5.5,0,48.0,standard,rain,normal
+SHP-26-000380,2026-06-17 16:00,"dist:108.2 KM, wt:2.52 KG, zone:regional",5,6.3,30.6,0,48.0,standard,clear,congested
+SHP-26-004860,2026-01-20 16:00,"dist:78.5 KM, wt:0.48 KG, zone:metro",5,1.4,57.2,1,48.0,standard,fog,normal
+SHP-26-003994,2026-04-30 00:00,WT:1.04 kg | ZONE:regional | DIST:173.1 km,2,1.9,44.1,0,24.0,express,clear,restricted
+SHP-26-004888,2026-06-10 00:00, Dist = 301.7km ; Zone = remote ; Wt = 1.81 kg ,8,11.2,10.7,1,48.0,standard,clear,normal
+SHP-26-001077,2026-01-19 23:00,zone=REMOTE; wt=1.07KG; dist=125.7KM,4,12.7,2.2,0,48.0,standard,clear,congested
+SHP-26-000879,2026-05-21 13:00,WT:0.93 kg | ZONE:regional | DIST:348.1 km,6,12.5,83.1,2,24.0,express,clear,normal
+SHP-26-000338,2026-01-28 13:00, Dist = 31.0km ; Zone = metro ; Wt = 0.61 kg ,5,6.5,38.6,0,24.0,express,clear,normal
+SHP-26-001017,2026-06-14 12:00,zone=REGIONAL; wt=1.25KG; dist=190.9KM,7,11.0,52.1,1,24.0,express,rain,normal
+SHP-26-001276,2026-07-04 02:00,DIST: 146.3 km | WT: 0.82 kg | ZONE: metro,8,6.3,20.2,0,48.0,standard,storm,congested
+SHP-26-003799,2026-03-17 00:00,WT:1.17 kg | ZONE:metro | DIST:143.1 km,7,0.4,31.6,1,72.0,economy,clear,congested
+SHP-26-004552,2026-03-29 08:00,zone=METRO; wt=0.51KG; dist=106.4KM,6,8.9,32.0,0,48.0,standard,rain,congested
+SHP-26-003343,2026-01-10 15:00, Dist = 203.7km ; Zone = regional ; Wt = 3.21 kg ,2,10.1,40.5,0,48.0,standard,clear,normal
+SHP-26-004912,2026-07-18 19:00,zone=REGIONAL; wt=2.42KG; dist=266.8KM,5,1.8,12.8,1,48.0,standard,clear,congested
+SHP-26-000996,2026-07-27 19:00,DIST: 333.2 km | WT: 0.8 kg | ZONE: regional,8,4.2,9.0,0,48.0,standard,storm,normal
+SHP-26-001982,2026-04-03 00:00,zone=METRO; wt=3.14KG; dist=154.8KM,3,6.3,28.7,0,48.0,standard,rain,normal
+SHP-26-004298,2026-08-07 22:00, Dist = 288.8km ; Zone = remote ; Wt = 3.93 kg ,4,6.8,18.3,0,48.0,standard,clear,normal
+SHP-26-000162,2026-06-19 09:00,zone=REMOTE; wt=2.64KG; dist=263.5KM,8,6.7,32.4,0,48.0,standard,fog,normal
+SHP-26-004799,2026-01-05 03:00,WT:2.04 kg | ZONE:regional | DIST:278.3 km,5,12.9,23.1,0,48.0,standard,clear,normal
+SHP-26-001501,2026-01-03 18:00,DIST: 94.6 km | WT: 3.53 kg | ZONE: remote,8,6.3,73.8,0,48.0,standard,fog,normal
+SHP-26-003844,2026-07-30 22:00,WT:1.44 kg | ZONE:metro | DIST:159.8 km,7,9.9,54.6,0,48.0,standard,fog,congested
+SHP-26-005226,2026-05-09 22:00,DIST: 546.7 km | WT: 1.68 kg | ZONE: metro,8,9.0,19.9,0,24.0,express,rain,normal
+SHP-26-002614,2026-07-01 06:00,WT:1.45 kg | ZONE:metro | DIST:168.6 km,6,3.3,24.0,2,72.0,economy,clear,normal
+SHP-26-003462,2026-08-20 06:00,zone=REGIONAL; wt=5.87KG; dist=239.7KM,4,0.4,39.9,0,72.0,economy,clear,normal
+SHP-26-001022,2026-01-21 04:00,zone=METRO; wt=2.21KG; dist=160.8KM,5,0.3,34.6,0,48.0,standard,clear,normal
+SHP-26-003074,2026-07-18 11:00,WT:2.35 kg | ZONE:remote | DIST:375.9 km,7,4.7,22.6,2,72.0,economy,clear,normal
+SHP-26-003944,2026-03-30 08:00,WT:1.47 kg | ZONE:metro | DIST:22.2 km,5,3.9,43.4,1,48.0,standard,fog,normal
+SHP-26-001586,2026-07-06 20:00,DIST: 87.2 km | WT: 4.56 kg | ZONE: regional,2,1.7,6.8,0,24.0,express,rain,normal
+SHP-26-001956,2026-05-30 04:00,DIST: 97.0 km | WT: 3.87 kg | ZONE: metro,5,1.7,22.7,0,48.0,standard,fog,congested
+SHP-26-003153,2026-08-19 16:00, Dist = 155.4km ; Zone = remote ; Wt = 0.58 kg ,6,4.3,15.1,1,48.0,standard,clear,congested
+SHP-26-000035,2026-06-26 00:00,"dist:122.3 KM, wt:3.1 KG, zone:metro",3,0.7,18.9,2,48.0,standard,storm,restricted
+SHP-26-004015,2026-04-10 16:00,"dist:269.7 KM, wt:0.91 KG, zone:metro",4,7.3,13.2,0,48.0,standard,clear,congested
+SHP-26-000776,2026-02-12 19:00,DIST: 347.1 km | WT: 1.01 kg | ZONE: regional,3,3.0,65.9,0,48.0,standard,clear,normal
+SHP-26-002557,2026-05-29 06:00,zone=REMOTE; wt=0.51KG; dist=172.5KM,7,0.8,38.9,0,48.0,  EXPRESS  ,clear,restricted
+SHP-26-001479,2026-05-23 19:00,WT:2.37 kg | ZONE:metro | DIST:229.4 km,2,8.6,28.7,0,24.0,express,clear,congested
+SHP-26-001364,2026-08-26 08:00,WT:2.06 kg | ZONE:metro | DIST:332.2 km,2,13.5,59.8,0,24.0,express,clear,normal
+SHP-26-002613,2026-07-29 06:00, Dist = 263.6km ; Zone = regional ; Wt = 1.73 kg ,6,5.9,12.8,0,72.0,economy,clear,normal
+SHP-26-002825,2026-06-09 00:00,"dist:234.5 KM, wt:3.69 KG, zone:metro",1,2.1,9.8,1,48.0,standard,clear,restricted
+SHP-26-002042,2026-01-12 06:00,zone=METRO; wt=15.75KG; dist=238.5KM,8,6.6,80.7,0,24.0,  EXPRESS  ,rain,normal
+SHP-26-000242,2026-02-14 03:00,zone=METRO; wt=3.6KG; dist=264.8KM,8,5.6,51.5,0,48.0,standard,fog,normal
+SHP-26-002062,2026-07-19 17:00,zone=REGIONAL; wt=1.08KG; dist=208.2KM,8,7.6,24.6,0,72.0,economy,clear,congested
+SHP-26-002364,2026-06-26 10:00,WT:3.34 kg | ZONE:metro | DIST:109.9 km,2,10.0,7.2,0,48.0,standard,clear,congested
+SHP-26-000601,2026-07-01 09:00,DIST: 243.2 km | WT: 3.52 kg | ZONE: metro,7,11.3,18.0,1,48.0,standard,rain,congested
+SHP-26-002436,2026-02-03 16:00,DIST: 346.7 km | WT: 1.66 kg | ZONE: regional,2,10.2,28.3,1,48.0,standard,clear,normal
+SHP-26-002889,2026-08-07 23:00,WT:7.33 kg | ZONE:metro | DIST:90.9 km,5,9.4,3.0,0,72.0,economy,clear,congested
+SHP-26-000647,2026-06-19 05:00,zone=REGIONAL; wt=3.05KG; dist=101.5KM,2,2.0,13.0,0,48.0,standard,clear,congested
+SHP-26-003891,2026-06-03 18:00,DIST: 283.5 km | WT: 0.98 kg | ZONE: regional,1,6.9,37.6,0,72.0,economy,fog,normal
+SHP-26-003557,2026-06-05 22:00,ZONE=regional; DIST=unknown; WT=unknown,2,10.1,32.6,0,48.0,standard,clear,congested
+SHP-26-003203,2026-05-20 21:00, Dist = 279.5km ; Zone = metro ; Wt = 3.16 kg ,1,2.2,52.9,0,48.0,standard,clear,normal
+SHP-26-001529,2026-06-15 08:00,WT:3.64 kg | ZONE:metro | DIST:317.0 km,1,4.7,35.5,0,24.0,express,clear,normal
+SHP-26-001268,2026-07-08 17:00, Dist = 198.4km ; Zone = metro ; Wt = 2.02 kg ,3,4.6,9.6,0,48.0,standard,clear,congested
+SHP-26-001900,2026-08-11 01:00,"dist:137.8 KM, wt:0.6 KG, zone:regional",3,5.7,64.5,0,48.0,standard,clear,congested
+SHP-26-004659,2026-06-02 15:00,WT:12.18 kg | ZONE:regional | DIST:203.0 km,3,12.9,23.2,1,48.0,standard,clear,restricted
+SHP-26-003006,2026-07-22 20:00,DIST: 490.0 km | WT: 0.58 kg | ZONE: metro,7,13.2,52.1,0,72.0,economy, RAIN ,congested
+SHP-26-002735,2026-02-19 18:00,"dist:199.6 KM, wt:3.05 KG, zone:regional",3,7.1,65.1,1,24.0,express,clear,normal
+SHP-26-000190,2026-07-31 06:00,"dist:182.5 KM, wt:0.32 KG, zone:remote",7,4.2,,0,48.0,standard,fog,normal
+SHP-26-001807,2026-01-31 04:00,zone=METRO; wt=2.46KG; dist=292.8KM,5,11.3,26.9,2,48.0,standard,clear,normal
+SHP-26-000976,2026-05-21 22:00,DIST: 269.6 km | WT: 2.86 kg | ZONE: remote,4,4.6,70.4,3,48.0,standard,clear,congested
+SHP-26-002748,2026-01-31 14:00, Dist = 214.7km ; Zone = remote ; Wt = 0.39 kg ,4,10.6,27.7,0,24.0,express,rain,normal
+SHP-26-002048,2026-02-21 00:00, Dist = 166.1km ; Zone = metro ; Wt = 1.53 kg ,3,13.4,50.4,0,24.0,express,fog,normal
+SHP-26-002559,2026-04-30 13:00,WT:4.06 kg | ZONE:metro | DIST:120.2 km,2,7.3,6.7,0,24.0,express,rain,normal
+SHP-26-001083,2026-08-01 20:00, Dist = 319.6km ; Zone = regional ; Wt = 3.59 kg ,4,6.5,52.6,0,48.0,standard,clear,normal
+SHP-26-000475,2026-05-04 22:00,"dist:35.2 KM, wt:1.17 KG, zone:metro",2,8.2,12.1,1,24.0,express,clear,normal
+SHP-26-002905,2026-04-25 18:00,"dist:270.1 KM, wt:0.51 KG, zone:metro",6,3.9,28.9,0,48.0,standard,storm,congested
+SHP-26-004844,2026-04-01 15:00,WT:0.9 kg | ZONE:metro | DIST:161.6 km,4,7.9,31.4,0,48.0,standard,clear,normal
+SHP-26-004118,2026-05-19 11:00, Dist = 503.1km ; Zone = regional ; Wt = 0.77 kg ,4,2.4,61.4,0,48.0,standard,clear,normal
+SHP-26-003386,2026-05-24 03:00,DIST: 165.0 km | WT: 12.47 kg | ZONE: remote,5,5.5,31.3,1,48.0,standard,storm,normal
+SHP-26-004556,2026-05-01 14:00,DIST: 122.2 km | WT: 0.68 kg | ZONE: remote,5,8.5,18.5,0,48.0,standard,clear,normal
+SHP-26-001185,2026-07-09 11:00,"dist:191.5 KM, wt:2.52 KG, zone:regional",2,9.6,58.2,0,48.0,standard,clear,congested
+SHP-26-005052,2026-05-12 18:00,zone=REMOTE; wt=2.01KG; dist=198.7KM,8,0.4,45.0,0,48.0,standard,clear,normal
+SHP-26-002434,2026-03-25 22:00,WT:1.25 kg | ZONE:metro | DIST:168.3 km,6,7.9,57.7,0,48.0,standard,clear,congested
+SHP-26-002392,2026-06-30 22:00,zone=REMOTE; wt=2.06KG; dist=82.9KM,3,1.1,152.1,0,48.0,standard,fog,normal
+SHP-26-000770,2026-08-17 00:00,"dist:65.6 KM, wt:4.78 KG, zone:metro",3,7.5,61.0,1,72.0,economy,rain,normal
+SHP-26-001686,2026-03-06 23:00,DIST: 187.1 km | WT: 4.3 kg | ZONE: metro,3,2.6,21.4,0,48.0,standard,clear,normal
+SHP-26-000131,2026-03-26 20:00,DIST: 481.9 km | WT: 0.38 kg | ZONE: metro,4,6.5,67.4,0,48.0,standard,storm,normal
+SHP-26-002920,2026-04-16 06:00,"dist:389.8 KM, wt:2.91 KG, zone:metro",6,3.4,19.1,0,48.0,standard,clear,normal
+SHP-26-003172,2026-02-03 02:00,zone=METRO; wt=1.56KG; dist=334.5KM,6,2.0,18.7,0,24.0,express,clear,normal
+SHP-26-003445,2026-08-05 15:00,"dist:62.0 KM, wt:1.98 KG, zone:regional",8,8.1,49.3,0,72.0,economy,clear,normal
+SHP-26-004427,2026-01-30 09:00,zone=METRO; wt=4.61KG; dist=62.3KM,4,0.6,38.0,2,48.0,standard,rain,normal
+SHP-26-000467,2026-02-20 20:00,zone=REMOTE; wt=0.94KG; dist=217.1KM,2,12.6,15.6,0,24.0,express,clear,normal
+SHP-26-003093,2026-04-11 01:00, Dist = 90.5km ; Zone = regional ; Wt = 7.09 kg ,1,5.2,31.7,0,24.0,express,clear,congested
+SHP-26-003773,2026-07-19 20:00, Dist = 68.5km ; Zone = metro ; Wt = 0.75 kg ,7,6.9,24.9,0,48.0,standard,rain,normal
+SHP-26-005192,2026-05-24 03:00,zone=REMOTE; wt=5.84KG; dist=47.7KM,8,9.5,47.2,1,48.0,standard,clear,congested
+SHP-26-005227,2026-05-20 03:00,zone=METRO; wt=2.47KG; dist=318.5KM,4,0.9,25.4,1,48.0,standard,rain,congested
+SHP-26-000861,2026-02-27 11:00,DIST: 150.2 km | WT: 2.9 kg | ZONE: metro,4,13.4,47.5,0,48.0,standard,rain,normal
+SHP-26-000302,2026-01-26 13:00,zone=REGIONAL; wt=4.07KG; dist=276.5KM,5,6.3,54.5,0,24.0,express,clear,normal
+SHP-26-003421,2026-06-20 23:00,DIST: 324.2 km | WT: 6.17 kg | ZONE: metro,1,5.1,53.4,0,48.0,standard,clear,normal
+SHP-26-005110,2026-01-01 12:00,"dist:158.9 KM, wt:2.67 KG, zone:metro",3,11.7,49.8,0,72.0,economy,rain,congested
+SHP-26-001061,2026-05-05 07:00,DIST: 312.2 km | WT: 3.32 kg | ZONE: metro,6,13.5,39.4,1,48.0,standard,clear,
+BAD-TIME-5298-0,not-a-timestamp,zone=METRO; wt=2.47KG; dist=318.5KM,4,0.9,25.4,1,48.0,standard,rain,congested
+BAD-TIME-5299-1,not-a-timestamp,DIST: 150.2 km | WT: 2.9 kg | ZONE: metro,4,13.4,47.5,0,48.0,standard,rain,normal
