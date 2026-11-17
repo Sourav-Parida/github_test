@@ -1,8 +1,9 @@
 import zipfile
 import os
 
-zip_path = "practice-main.zip"
-extract_path = "./"
+zip_path = "M2/Archive.zip"
+print(zip_path)
+extract_path = "M2"
 
 os.makedirs(extract_path, exist_ok=True)
 
