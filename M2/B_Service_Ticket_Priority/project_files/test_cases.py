@@ -1,131 +1,294 @@
 """Exactly 20 independently graded checks (3 marks each = 60 marks)."""
 import os
-import shutil
 from pathlib import Path
+
 import joblib
 import nbformat
 import numpy as np
 import pandas as pd
 import pytest
-from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import LabelEncoder, FunctionTransformer
-from sklearn.metrics import (f1_score, confusion_matrix, mean_absolute_error,
-    mean_squared_error, r2_score, silhouette_score, davies_bouldin_score)
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, f1_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import LabelEncoder
+
 
 BASE = Path(__file__).resolve().parent
 
+
 @pytest.fixture(scope="module")
-def s():
-    notebook_name = os.environ.get("MS2_NOTEBOOK", "solution.ipynb")
-    notebook = nbformat.read(BASE / notebook_name, as_version=4)
-    ns = {"__name__": "notebook_under_test"}
+def app():
+    notebook_name = os.environ.get("MS2_NOTEBOOK", "solution_with_code.ipynb")
+    notebook_path = BASE / notebook_name
+    notebook = nbformat.read(notebook_path, as_version=4)
+    module = {}
     for cell in notebook.cells:
         if cell.cell_type == "code" and "definitions" in cell.metadata.get("tags", []):
-            exec(compile(cell.source, notebook_name, "exec"), ns)
-    return ns
+            source = cell.source.strip()
+            if source:
+                exec(compile(source, str(notebook_path), "exec"), module)
+    return module
 
-@pytest.fixture(scope="module")
-def state(s):
-    training = {"a": ("shipment_train.csv", "shipment_test.csv"),
-                "b": ("ticket_train.csv", "ticket_test.csv"),
-                "c": ("water_train.csv", "water_test.csv"),
-                "d": ("retail_train.csv", "retail_test.csv")}[CASE]
-    if CASE == "d":
-        a, b = s["prepare_datasets"](*(str(BASE / f) for f in training))
-        models = s["train_models"](a)
-        comp = s["evaluate_models"](models, b)
-        best = s["select_best_model"](comp, models)
-        return {"a":a,"b":b,"models":models,"comp":comp,"best":best}
-    prepared = s["prepare_datasets"](*(str(BASE / f) for f in training))
-    xtr, xte, ytr, yte = prepared[:4]
-    models = s["train_models"](xtr,ytr)
-    evaluated = s["evaluate_models"](models,xte,yte)
-    comp = evaluated[0] if CASE=="b" else evaluated
-    best=s["select_best_model"](comp,models)
-    return {"xtr":xtr,"xte":xte,"ytr":ytr,"yte":yte,
-            "models":models,"comp":comp,"best":best,
-            "encoder":prepared[4] if CASE=="b" else None,
-            "matrices":evaluated[1] if CASE=="b" else None}
 
-def run_integration(s, tmp_path):
-    # Work in temporary directory so source CSVs stay unchanged.
-    patterns = {"a": ["shipment_train.csv","shipment_test.csv","shipment_predict.csv"],
-        "b": ["ticket_train.csv","ticket_test.csv","ticket_predict.csv"],
-        "c": ["water_train.csv","water_test.csv","water_predict.csv"],
-        "d": ["retail_train.csv","retail_test.csv","retail_predict.csv"]}
-    for name in patterns[CASE]:
-        shutil.copy(BASE/name, tmp_path/name)
-    old=os.getcwd()
-    try:
-        os.chdir(tmp_path)
-        name, comparison=s["train"]()
-        assert Path("best_model.pkl").is_file()
-        assert Path("model_comparison.csv").is_file()
-        result=s["predict"]()
-        return name,comparison,result,Path(tmp_path)
-    finally:
-        os.chdir(old)
+def ticket_rows(n=6, include_target=True):
+    df = pd.DataFrame({
+        "ticket_id": [f"TK-{i:04d}" for i in range(n)],
+        "opened_ts": pd.date_range("2026-03-01 08:15", periods=n, freq="7h").strftime("%Y-%m-%d %H:%M"),
+        "response_minutes": [15.0 + i * 2 for i in range(n)],
+        "touch_count": [i % 5 + 1 for i in range(n)],
+        "backlog_count": [i * 3 + 2 for i in range(n)],
+        "agent_count": [i % 4 + 1 for i in range(n)],
+        "agent_experience_yrs": [float(i % 8 + 1) for i in range(n)],
+        "channel": [["chat", "email", "phone"][i % 3] for i in range(n)],
+        "product_area": [["billing", "technical", "delivery"][i % 3] for i in range(n)],
+        "customer_tier": [str(i % 3 + 1) + ".0" for i in range(n)],
+    })
+    if include_target:
+        df["priority"] = [["high", "low", "medium"][i % 3] for i in range(n)]
+    return df
 
-CASE = "b"
 
-def test_T01_dedup(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_train.csv")); assert df["ticket_id"].is_unique
+def write_frame(path, df):
+    df.to_csv(path, index=False)
+    return str(path)
 
-def test_T02_timestamp(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_train.csv")); assert pd.api.types.is_datetime64_any_dtype(df["opened_ts"]); assert df["opened_ts"].notna().all()
 
-def test_T03_infinity(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_train.csv")); assert not np.isinf(df[s["RAW_NUMERIC"]].to_numpy(dtype=float)).any()
+def feature_frame(app, n=18):
+    data = {}
+    for i, name in enumerate(app["NUMERIC"]):
+        data[name] = np.arange(n, dtype=float) + i + 1
+    for name in app["CATEGORICAL"]:
+        data[name] = [["chat", "email", "phone"][i % 3] for i in range(n)]
+    return pd.DataFrame(data, columns=app["FEATURES"])
 
-def test_T04_numericstring(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_train.csv")); assert not df["customer_tier"].str.contains(r"\.0$",regex=True).any()
 
-def test_T05_targetnormal(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_train.csv")); assert df["priority"].dropna().str.upper().eq(df["priority"].dropna()).all(); assert not df["priority"].dropna().str.contains(" ").any()
+def test_T01_first_duplicate_ticket_id_retained(app, tmp_path):
+    df = ticket_rows(3)
+    df.loc[1, "ticket_id"] = df.loc[0, "ticket_id"]
+    df.loc[1, "response_minutes"] = 999
+    result = app["load_data"](write_frame(tmp_path / "duplicates.csv", df))
+    assert result["ticket_id"].tolist() == ["TK-0000", "TK-0002"]
+    assert result.loc[0, "response_minutes"] == 15
 
-def test_T06_datetimefeatures(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_test.csv")); assert (df["opened_hour"]==df["opened_ts"].dt.hour).all() and (df["opened_month"]==df["opened_ts"].dt.month).all()
 
-def test_T07_safe_division(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_train.csv")); assert not np.isinf(df["backlog_per_agent"].dropna().to_numpy()).any()
+def test_T02_parse_mixed_timestamps_and_remove_invalid(app, tmp_path):
+    df = ticket_rows(3)
+    df.loc[0, "opened_ts"] = "2026-03-07 22:30"
+    df.loc[1, "opened_ts"] = "08/03/2026 09:15"
+    df.loc[2, "opened_ts"] = "bad timestamp"
+    result = app["load_data"](write_frame(tmp_path / "timestamps.csv", df))
+    assert len(result) == 2
+    assert pd.api.types.is_datetime64_any_dtype(result["opened_ts"])
+    assert result["opened_ts"].dt.hour.tolist() == [22, 9]
+    assert result["opened_ts"].dt.day.tolist() == [7, 8]
 
-def test_T08_features(s, state, tmp_path):
-    assert len(s["FEATURES"])==11; assert "ticket_id" not in s["FEATURES"] and s["TARGET"] not in s["FEATURES"]
 
-def test_T09_preprocessor(s, state, tmp_path):
-    pipe=s["build_pipeline"](state["models"]["random_forest"].named_steps["model"]); assert isinstance(pipe.named_steps["preprocessor"],ColumnTransformer); assert len(pipe.named_steps["preprocessor"].transformers)==2
+def test_T03_numeric_coercion_and_infinity_replacement(app, tmp_path):
+    df = ticket_rows(5)
+    df["response_minutes"] = ["bad", "inf", "-inf", "12", "8.5"]
+    df["touch_count"] = ["1", "?", "2", "3", "4"]
+    result = app["load_data"](write_frame(tmp_path / "numeric.csv", df))
+    assert all(pd.api.types.is_numeric_dtype(result[col]) for col in app["RAW_NUMERIC"])
+    assert result.loc[0, "response_minutes"] != result.loc[0, "response_minutes"]
+    assert result.loc[1, "response_minutes"] != result.loc[1, "response_minutes"]
+    assert not np.isinf(result[app["RAW_NUMERIC"]].to_numpy(dtype=float)).any()
 
-def test_T10_labelencode(s, state, tmp_path):
-    assert isinstance(state["encoder"],LabelEncoder); assert set(state["encoder"].classes_)==set(s["CLASS_NAMES"]); assert set(state["ytr"].unique())=={0,1,2}
 
-def test_T11_invalidtargets(s, state, tmp_path):
-    assert state["ytr"].notna().all() and state["yte"].notna().all(); assert len(state["xtr"])==len(state["ytr"])
+def test_T04_clean_numeric_like_customer_tier(app, tmp_path):
+    df = ticket_rows(3)
+    result = app["load_data"](write_frame(tmp_path / "tiers.csv", df))
+    assert result["customer_tier"].tolist() == ["1", "2", "3"]
+    assert not result["customer_tier"].str.contains(r"\.0$", regex=True).any()
 
-def test_T12_columnexclude(s, state, tmp_path):
-    assert state["xtr"].columns.tolist()==s["FEATURES"]; assert "opened_ts" not in state["xtr"]
 
-def test_T13_modelclasses(s, state, tmp_path):
-    assert set(state["models"])=={"logistic_regression","random_forest"}
+def test_T05_normalize_priority_target(app, tmp_path):
+    df = ticket_rows(4)
+    df["priority"] = [" high ", "low", "Medium ", " HIGH "]
+    result = app["load_data"](write_frame(tmp_path / "targets.csv", df))
+    assert result["priority"].tolist() == ["HIGH", "LOW", "MEDIUM", "HIGH"]
 
-def test_T14_fitted(s, state, tmp_path):
-    assert all(hasattr(p.named_steps["model"],"classes_") for p in state["models"].values())
 
-def test_T15_macro(s, state, tmp_path):
-    row=state["comp"].iloc[0]; p=state["models"][row["model_name"]]; y=p.predict(state["xte"]); assert np.isclose(row["macro_f1"],f1_score(state["yte"],y,labels=[0,1,2],average="macro",zero_division=0))
+def test_T06_derive_opened_hour_and_month(app, tmp_path):
+    df = ticket_rows(3)
+    df["opened_ts"] = ["2026-01-02 04:15", "2026-06-11 13:20", "2026-12-25 22:45"]
+    result = app["load_data"](write_frame(tmp_path / "time_features.csv", df))
+    assert result["opened_hour"].tolist() == [4, 13, 22]
+    assert result["opened_month"].tolist() == [1, 6, 12]
 
-def test_T16_weighted(s, state, tmp_path):
-    row=state["comp"].iloc[0]; p=state["models"][row["model_name"]]; y=p.predict(state["xte"]); assert np.isclose(row["weighted_f1"],f1_score(state["yte"],y,labels=[0,1,2],average="weighted",zero_division=0))
 
-def test_T17_confusion(s, state, tmp_path):
-    for_name=state["best"][0]; cm=state["matrices"][for_name]; assert cm.shape==(3,3) and cm.sum()==len(state["yte"])
+def test_T07_safe_backlog_per_agent_division(app, tmp_path):
+    df = ticket_rows(3)
+    df["agent_count"] = [0, 2, 4]
+    result = app["load_data"](write_frame(tmp_path / "ratio.csv", df))
+    assert pd.isna(result.loc[0, "backlog_per_agent"])
+    assert not np.isinf(result["backlog_per_agent"].dropna().to_numpy()).any()
 
-def test_T18_sortbest(s, state, tmp_path):
-    c=state["comp"]; assert c["macro_f1"].is_monotonic_decreasing; assert state["best"][1] is state["models"][state["best"][0]]
 
-def test_T19_inverse(s, state, tmp_path):
-    df=s["load_data"](str(BASE/"ticket_predict.csv")); r=s["predict_priority"](state["best"][1],state["encoder"],df); assert r.columns.tolist()==["ticket_id","predicted_priority","confidence","high_probability"]; assert set(r["predicted_priority"]).issubset(set(s["CLASS_NAMES"])); assert r["high_probability"].between(0,1).all()
+def test_T08_exact_feature_groups_exclude_identifiers_and_target(app):
+    assert len(app["NUMERIC"]) == 8
+    assert len(app["CATEGORICAL"]) == 3
+    assert len(app["FEATURES"]) == 11
+    assert "ticket_id" not in app["FEATURES"]
+    assert app["TARGET"] not in app["FEATURES"]
 
-def test_T20_integration(s, state, tmp_path):
-    name,comp,result,path=run_integration(s,tmp_path); assert (path/"confusion_matrix.csv").exists() and (path/"ticket_predictions.csv").exists() and len(result)>0
 
+def test_T09_column_transformer_has_numeric_and_category_branches(app):
+    pipeline = app["build_pipeline"](LogisticRegression())
+    transformer = pipeline.named_steps["preprocessor"]
+    assert isinstance(transformer, ColumnTransformer)
+    assert len(transformer.transformers) == 2
+    assert list(transformer.transformers[0][2]) == app["NUMERIC"]
+    assert list(transformer.transformers[1][2]) == app["CATEGORICAL"]
+
+
+def test_T10_label_encoder_matches_class_names(app, tmp_path):
+    df = ticket_rows(6)
+    train_path = write_frame(tmp_path / "train.csv", df)
+    test_path = write_frame(tmp_path / "test.csv", df)
+    _, _, y_train, y_test, encoder = app["prepare_datasets"](train_path, test_path)
+    assert isinstance(encoder, LabelEncoder)
+    assert encoder.classes_.tolist() == sorted(app["CLASS_NAMES"])
+    assert set(y_train.unique()) == {0, 1, 2}
+    assert y_test.tolist() == y_train.tolist()
+
+
+def test_T11_remove_invalid_targets_and_preserve_alignment(app, tmp_path):
+    df = ticket_rows(6)
+    df["priority"] = ["high", "low", "medium", "urgent", None, " LOW "]
+    train_path = write_frame(tmp_path / "train-invalid.csv", df)
+    test_path = write_frame(tmp_path / "test-invalid.csv", df)
+    X_train, _, y_train, _, _ = app["prepare_datasets"](train_path, test_path)
+    assert len(X_train) == len(y_train) == 4
+    assert X_train.index.tolist() == y_train.index.tolist()
+    assert set(y_train.unique()) == {0, 1, 2}
+
+
+def test_T12_prepared_features_exclude_timestamp(app, tmp_path):
+    df = ticket_rows(6)
+    train_path = write_frame(tmp_path / "train.csv", df)
+    test_path = write_frame(tmp_path / "test.csv", df)
+    X_train, X_test, _, _, _ = app["prepare_datasets"](train_path, test_path)
+    assert X_train.columns.tolist() == app["FEATURES"]
+    assert X_test.columns.tolist() == app["FEATURES"]
+    assert "opened_ts" not in X_train.columns
+
+
+def test_T13_create_logistic_and_random_forest_models(app):
+    X = feature_frame(app)
+    y = pd.Series([0, 1, 2] * 6)
+    models = app["train_models"](X, y)
+    assert set(models) == {"logistic_regression", "random_forest"}
+    assert isinstance(models["logistic_regression"].named_steps["model"], LogisticRegression)
+    assert isinstance(models["random_forest"].named_steps["model"], RandomForestClassifier)
+
+
+def test_T14_models_are_fitted_and_independent(app):
+    X = feature_frame(app)
+    y = pd.Series([0, 1, 2] * 6)
+    models = app["train_models"](X, y)
+    assert models["logistic_regression"] is not models["random_forest"]
+    assert all(hasattr(model.named_steps["model"], "classes_") for model in models.values())
+    assert all(set(model.classes_) == {0, 1, 2} for model in models.values())
+
+
+def test_T15_macro_f1_matches_predictions(app):
+    class FakeModel:
+        def predict(self, X):
+            return np.array([0, 2, 2, 1])
+
+    y = pd.Series([0, 1, 2, 0])
+    X = pd.DataFrame({"value": [0, 1, 2, 3]})
+    comparison, _ = app["evaluate_models"]({"fake": FakeModel()}, X, y)
+    expected = f1_score(y, [0, 2, 2, 1], labels=[0, 1, 2], average="macro", zero_division=0)
+    assert np.isclose(comparison.loc[0, "macro_f1"], expected)
+
+
+def test_T16_weighted_f1_matches_predictions(app):
+    class FakeModel:
+        def predict(self, X):
+            return np.array([0, 2, 2, 1])
+
+    y = pd.Series([0, 1, 2, 0])
+    X = pd.DataFrame({"value": [0, 1, 2, 3]})
+    comparison, _ = app["evaluate_models"]({"fake": FakeModel()}, X, y)
+    expected = f1_score(y, [0, 2, 2, 1], labels=[0, 1, 2], average="weighted", zero_division=0)
+    assert np.isclose(comparison.loc[0, "weighted_f1"], expected)
+
+
+def test_T17_confusion_matrix_has_all_classes(app):
+    class FakeModel:
+        def predict(self, X):
+            return np.array([0, 1, 2, 0])
+
+    y = pd.Series([0, 1, 2, 0])
+    X = pd.DataFrame({"value": [0, 1, 2, 3]})
+    _, matrices = app["evaluate_models"]({"fake": FakeModel()}, X, y)
+    assert matrices["fake"].shape == (3, 3)
+    assert matrices["fake"].sum() == len(y)
+    assert np.array_equal(matrices["fake"], confusion_matrix(y, y, labels=[0, 1, 2]))
+
+
+def test_T18_sort_metrics_and_select_best_model(app):
+    class FakeModel:
+        def __init__(self, predictions):
+            self.predictions = np.asarray(predictions)
+
+        def predict(self, X):
+            return self.predictions
+
+    y = pd.Series([0, 1, 2, 0, 1, 2])
+    X = pd.DataFrame({"value": range(6)})
+    models = {
+        "zeta": FakeModel([0, 1, 2, 0, 1, 2]),
+        "alpha": FakeModel([0, 1, 2, 0, 1, 2]),
+        "beta": FakeModel([0, 0, 2, 0, 0, 2]),
+    }
+    comparison, _ = app["evaluate_models"](models, X, y)
+    assert comparison["model_name"].tolist() == ["alpha", "zeta", "beta"]
+    assert comparison["macro_f1"].is_monotonic_decreasing
+    name, selected = app["select_best_model"](comparison, models)
+    assert name == "alpha" and selected is models["alpha"]
+
+
+def test_T19_inverse_labels_and_probability_outputs(app):
+    class FakeModel:
+        classes_ = np.array([0, 1, 2])
+
+        def predict(self, X):
+            return np.array([0, 2, 1])
+
+        def predict_proba(self, X):
+            return np.array([[0.8, 0.1, 0.1], [0.1, 0.2, 0.7], [0.2, 0.7, 0.1]])
+
+    encoder = LabelEncoder().fit(app["CLASS_NAMES"])
+    df = feature_frame(app, 3)
+    df["ticket_id"] = ["T1", "T2", "T3"]
+    result = app["predict_priority"](FakeModel(), encoder, df)
+    assert result.columns.tolist() == ["ticket_id", "predicted_priority", "confidence", "high_probability"]
+    assert result["ticket_id"].tolist() == ["T1", "T2", "T3"]
+    assert result["predicted_priority"].tolist() == ["HIGH", "MEDIUM", "LOW"]
+    assert result["confidence"].tolist() == [0.8, 0.7, 0.7]
+    assert result["high_probability"].tolist() == [0.8, 0.1, 0.2]
+
+
+def test_T20_train_predict_write_artifacts(app, tmp_path, monkeypatch):
+    train = ticket_rows(36)
+    test = ticket_rows(12)
+    future = ticket_rows(8, include_target=False)
+    train.to_csv(tmp_path / "ticket_train.csv", index=False)
+    test.to_csv(tmp_path / "ticket_test.csv", index=False)
+    future.to_csv(tmp_path / "ticket_predict.csv", index=False)
+    monkeypatch.chdir(tmp_path)
+
+    name, comparison = app["train"]()
+    assert name in comparison["model_name"].tolist()
+    assert (tmp_path / "best_model.pkl").is_file()
+    assert (tmp_path / "model_comparison.csv").is_file()
+    assert (tmp_path / "confusion_matrix.csv").is_file()
+    assert set(joblib.load(tmp_path / "best_model.pkl")) == {"model", "encoder"}
+
+    result = app["predict"]()
+    assert len(result) == len(future)
+    assert (tmp_path / "ticket_predictions.csv").is_file()
