@@ -1,0 +1,85 @@
+def load_data(filename: str) -> pd.DataFrame:
+    
+    df = pd.read_csv(filename, dtype={"reading_id": "string"})
+    df = df.drop_duplicates("reading_id", keep="first").copy()
+    dates = pd.to_datetime(df["reading_ts"], errors="coerce", dayfirst=True, format="mixed")
+    df = df.loc[dates.notna()].copy()
+    df["reading_ts"] = dates.loc[df.index]
+    for col in RAW_NUMERIC:
+        df[col] = pd.to_numeric(df[col], errors="coerce").replace([np.inf, -np.inf], np.nan)
+        df[col] = df[col].where(df[col] >= 0)
+        # nonnegative predictors for log1p
+    df["reading_hour"] = df["reading_ts"].dt.hour
+    df["reading_month"] = df["reading_ts"].dt.month
+    df["is_weekend"] = (df["reading_ts"].dt.dayofweek >= 5).astype(int)
+    hours = df["pump_hours"].where(df["pump_hours"] > 0)
+    df["flow_per_pump_hour"] = (df["flow_m3"] / hours).replace([np.inf, -np.inf], np.nan)
+    return df.reset_index(drop=True)
+
+#########################################################################
+
+def build_pipeline(algorithm) -> Pipeline:
+
+    numeric = Pipeline([("imputer", SimpleImputer(strategy="median")),
+                        ("log", FunctionTransformer(np.log1p, feature_names_out="one-to-one")),
+                        ("scaler", StandardScaler())
+                    ])
+    return Pipeline([("num", numeric), ("model", algorithm)])
+
+#################################################################################
+
+def prepare_datasets(train_file: str, test_file: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    
+    train_df, test_df = load_data(train_file), load_data(test_file)
+    for df in (train_df, test_df):
+        df[TARGET] = pd.to_numeric(df[TARGET], errors="coerce").replace([np.inf, -np.inf], np.nan)
+        df.drop(df.index[df[TARGET].isna() | (df[TARGET] < 0)], inplace=True)
+        
+    return train_df[FEATURES], test_df[FEATURES], train_df[TARGET], test_df[TARGET]
+
+########################################################################################
+
+
+def train_models(X_train: pd.DataFrame, y_train: pd.Series) -> dict[str, Pipeline]:
+    
+    models = {
+        "ridge_regression": Ridge(alpha=1.0),
+        "random_forest": RandomForestRegressor(n_estimators=80, max_depth=10,
+                    min_samples_leaf=2, random_state=42, n_jobs=-1)
+    }
+    trained_models = {}
+
+    for name, algorithm in models.items():
+        trained_models[name] = build_pipeline(algorithm).fit(X_train, y_train)
+    return trained_models
+
+
+###########################################################################################
+
+def evaluate_models(trained_models: dict[str, Pipeline], X_test: pd.DataFrame,y_test: pd.Series) -> pd.DataFrame:
+    
+    results = []
+    for name, pipeline in trained_models.items():
+        predictions = pipeline.predict(X_test)
+        results.append({"model_name": name,
+                        "mae": mean_absolute_error(y_test, predictions),
+                        "rmse": np.sqrt(mean_squared_error(y_test, predictions)),
+                        "r2": r2_score(y_test, predictions)})
+    return pd.DataFrame(results).sort_values(
+        ["mae", "rmse", "model_name"], ascending=[True, True, True]
+    ).reset_index(drop=True)
+
+#########################################################################
+
+def select_best_model(comparison: pd.DataFrame,trained_models: dict[str, Pipeline]) -> tuple[str, Pipeline]:
+    
+    name = str(comparison.iloc[0]["model_name"])
+    return name, trained_models[name]
+
+#######################################################################
+
+def predict_energy(model: Pipeline, df: pd.DataFrame) -> pd.DataFrame:
+    
+    values = np.maximum(model.predict(df[FEATURES]), 0).round(2)
+    return pd.DataFrame({"reading_id": df["reading_id"].to_numpy(),
+                        "predicted_energy_kwh": values})

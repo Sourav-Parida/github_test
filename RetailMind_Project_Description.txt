@@ -1,0 +1,165 @@
+RETAILMIND AI PROJECT DESCRIPTION
+
+Project Summary
+---------------
+RetailMind AI is an end-to-end learning project that applies machine learning and deep learning to realistic retail use cases. The project is implemented through a series of 13 daily modules, with each stage building on the previous stage and saving trained models and measurable results for comparison.
+
+The project covers four main business areas:
+1. Predicting customer churn.
+2. Classifying retail product images.
+3. Forecasting store-item demand.
+4. Analysing customer-review sentiment and routing review-derived support tickets.
+
+Project Structure
+-----------------
+- data/: Source datasets and generated or downloaded training data.
+- notebooks/: Jupyter notebooks for day-wise workflows and experiments.
+- src/: Python modules containing data preparation, training, evaluation, forecasting, vision, and text-processing code.
+- models/: Saved classical, TensorFlow, Keras, Transformer, and VAE models.
+- reports/: Metrics, predictions, comparison tables, plots, attention weights, and explainability images.
+
+Phase 1: Customer Churn Prediction - Days 1-5
+---------------------------------------------
+Objective:
+Use Telco customer account and service information to predict whether a customer is likely to leave.
+
+Topics completed:
+- Data loading and preprocessing.
+- Handling missing values.
+- Encoding categorical fields and scaling numeric features.
+- Logistic Regression baseline modelling.
+- Comparison of Decision Trees, Random Forest, and RBF SVM models.
+- Cross-validation and recall-focused model selection.
+- Hyperparameter tuning.
+- Feature engineering, including tenure groups and charge relationships.
+- Random Forest and classical ensemble/model comparison.
+- Keras Artificial Neural Network training.
+- Early stopping and a classical-versus-neural-network comparison.
+
+Saved results:
+- The Logistic Regression baseline achieved 73.81% test accuracy.
+- The selected RBF SVM achieved 74.38% test accuracy and was chosen for stronger cross-validation recall.
+- Feature engineering and ensemble comparison produced a 77.36% test-accuracy model.
+- The Keras ANN achieved 79.42% test accuracy.
+- The stronger accuracy of the ANN was balanced against lower churn recall compared with the Day 4 model.
+
+Business value:
+The model helps identify customers who may leave so that customer-retention teams can prioritise proactive outreach. Recall is treated as important because failing to identify a departing customer can be more costly than reviewing a false positive.
+
+Phase 2: Product and Catalog Image Classification - Days 6-8
+-------------------------------------------------------------
+Objective:
+Recognise clothing categories from images and make model predictions explainable.
+
+Topics completed:
+- Fashion-MNIST CNN classification.
+- Fashion Product Images catalog classification.
+- CNN architecture design and image preprocessing.
+- Training and confusion-matrix analysis.
+- Transfer learning with pretrained ResNet50.
+- Fine-tuning and classification of one selected catalog image.
+- Grad-CAM visual explanations.
+
+Saved results:
+- The Fashion-MNIST CNN achieved 91.42% test accuracy.
+- The initial catalog CNN achieved 66.88% test accuracy.
+- ResNet50 transfer learning achieved 92.93% test accuracy on the catalog classification task.
+- Grad-CAM reports were generated to show the image regions influencing predictions.
+
+Business value:
+The models support automated product categorisation and can help merchandising teams organise catalogs, audit labels, and understand model decisions for individual products.
+
+Phase 3: Demand Forecasting - Days 9-10
+---------------------------------------
+Objective:
+Forecast future sales from historical store-item demand data.
+
+Topics completed:
+- Loading and preparing store-item sales data.
+- Combining duplicate observations and creating time-based sequences.
+- LSTM demand forecasting.
+- Next-day prediction.
+- Seq2Seq sequence modelling.
+- Encoder-decoder forecasting for the next seven days.
+- Attention mechanisms and attention-weight visualisation.
+- MAE and RMSE evaluation.
+- Comparing multi-horizon forecasts with a one-day LSTM baseline.
+
+Saved results:
+- The LSTM next-day model achieved MAE 6.70 and RMSE 8.83 sales.
+- The Seq2Seq attention model achieved 7-day MAE 8.72 and RMSE 11.57 sales.
+- The project explicitly treats the attention model as an experiment and reports that its current one-day result did not improve on the stronger LSTM baseline.
+
+Business value:
+Forecasts can support inventory planning, purchasing decisions, replenishment schedules, and identification of periods requiring additional stock.
+
+Phase 4: Rare-Category Vision Augmentation - Day 11
+---------------------------------------------------
+Objective:
+Improve coverage for an underrepresented catalog category using image synthesis.
+
+Topics completed:
+- Training a convolutional Variational Autoencoder (VAE).
+- Generating synthetic candidates for a rare "Free Items" category.
+- Visual quality and diversity inspection.
+- Optional fine-tuning of the saved Day 7 classifier.
+- Comparing performance on an unchanged test split.
+
+Current status:
+- The first generated candidates were not sufficiently realistic or visually approved.
+- No classifier-lift claim was made because none of the candidates was approved for retraining.
+- The project demonstrates that synthetic samples require manual or automated quality control before they are used for production training.
+
+Business value:
+The VAE workflow provides a controlled way to investigate data augmentation for rare product categories without assuming that every generated image is suitable.
+
+Phase 5: Review Sentiment and Ticket Routing - Days 12-13
+----------------------------------------------------------
+Objective:
+Understand customer-review sentiment and demonstrate routing of review-derived support text.
+
+Topics completed:
+- NLTK text cleaning and tokenisation.
+- TF-IDF feature representation.
+- Logistic Regression sentiment classification.
+- Identifying informative positive and negative terms.
+- A classical sentiment-analysis baseline.
+- Fine-tuning a pretrained DistilBERT-family model.
+- Weak-label generation for ticket-routing categories.
+- Sentiment and ticket-routing model comparison.
+
+Saved results:
+- TF-IDF with Logistic Regression achieved 87.33% sentiment accuracy.
+- The fine-tuned BERT sentiment model achieved 91.67% accuracy on a separate experiment split.
+- The generated-label ticket-routing demonstration achieved 33.65% accuracy and is not presented as production-ready.
+
+Important limitation:
+Ticket-routing labels were derived from review keywords. They demonstrate the modelling workflow, but real support-ticket routing requires a separately labelled ticket dataset and a real operational taxonomy.
+
+Business value:
+The sentiment component can help teams identify positive or negative customer feedback at scale. The routing prototype illustrates how text can be classified into operational categories, while clearly distinguishing a demonstration from a production support system.
+
+Topics Covered Across the Project
+---------------------------------
+- Machine-learning preprocessing and data pipelines.
+- Classical models: Logistic Regression, Decision Trees, Random Forest, SVM, and KNN.
+- Cross-validation, hyperparameter tuning, learning curves, recall, accuracy, ROC-AUC, MAE, and RMSE.
+- Deep learning: ANNs, CNNs, ResNet50 transfer learning, LSTMs, Seq2Seq models, attention, and VAEs.
+- Explainable vision: Grad-CAM, visual overlays, and model-region interpretation.
+- NLP: NLTK cleaning, TF-IDF, Logistic Regression baselines, and BERT-family fine-tuning.
+- Model serialisation and reproducible reports.
+- Clear separation of experimental results from claims that are not supported by the data.
+
+Deliverables
+------------
+- Reusable training and prediction Python modules.
+- Saved baseline, tuned, neural-network, CNN, transfer-learning, forecasting, VAE, and Transformer models.
+- Jupyter notebooks documenting the day-wise implementation.
+- Accuracy, recall, MAE, RMSE, confusion matrices, comparison reports, plots, forecasts, attention weights, and Grad-CAM images.
+
+Manager Talking Points
+----------------------
+- RetailMind AI demonstrates both breadth and progression: it starts with classical models and advances to neural networks, transfer learning, forecasting, generative vision, and Transformers.
+- The project is organised into measurable phases, and each module saves artifacts so results can be reviewed and compared.
+- Retail use cases are linked to practical outcomes such as customer retention, catalog organisation, inventory planning, review analysis, and support routing.
+- Evaluation is treated carefully: the project distinguishes accuracy from recall and reports when a result is a comparison, limitation, or prototype rather than a production-ready outcome.

@@ -1,0 +1,166 @@
+ASSESSMENT / PRACTICAL WORK DESCRIPTION
+
+Purpose
+--------
+This document summarises the assessments and practical exercises completed while progressing through the Learnlytica curriculum. The work covers backend programming concepts, software engineering practices, machine learning, deep learning, computer vision, natural language processing, and modern generative AI topics.
+
+Backend and Application Assessments
+------------------------------------
+Day 9-11: TaskFlow application exercises
+
+Day 9 covered database and application data-handling concepts:
+- SQLAlchemy DeclarativeBase models and in-memory SQLite databases.
+- Inserting and reading task records and converting ORM objects into plain dictionaries.
+- Parameterised filtering of tasks by status.
+- SQL joins and aggregate queries for counting open tasks by project.
+- Batch create, update, and delete operations.
+- Input validation and structured error responses.
+- Typed HTTP-style error bodies for cases such as "not found".
+
+Day 10 covered API and application reliability concepts:
+- Safe sanitisation of user-entered tag names.
+- Cache-key construction for task queries.
+- CORS header construction.
+- PBKDF2 password hashing and secure password verification.
+- A TTL cache-aside implementation.
+- Structured JSON log records containing request context and outcome.
+
+Day 11 covered service and security concepts:
+- JWT access-token creation using HS256.
+- JWT claim verification, expiry checking, and role-based validation.
+- Counting tasks by status.
+- Repository and cache interactions for cache-first task reads.
+- Dependency injection using a repository and clock.
+- Computing overdue tasks and parameterised result summaries.
+
+Machine Learning and Deep Learning Assessments
+----------------------------------------------
+Day 13:
+- Logistic regression for classification.
+- Feature scaling and sklearn pipelines.
+- Train/test splitting and cross-validation.
+- ROC-AUC and ranked probability evaluation.
+- Mixed and numeric feature preprocessing.
+- Saving trained machine-learning pipelines for reuse.
+
+Day 14:
+- NumPy-based fundamentals.
+- Decision-tree classification and overfitting analysis.
+- Random Forest classification.
+- Support Vector Machines with scaling.
+- Comparing model behaviour and performance.
+
+Day 15:
+- Comparing classifiers such as Decision Trees, KNN, Naive Bayes, SVM, and ensemble models.
+- Pipeline construction and cross-validation.
+- StratifiedKFold and robust model evaluation.
+- Validation curves and learning curves.
+- Regression fundamentals using synthetic regression data.
+
+Day 16:
+- Mixed-feature preprocessing and logistic regression pipelines.
+- Principal Component Analysis (PCA) for dimensionality reduction.
+- Bagging and ensemble classification.
+- Gradient boosting for regression.
+- Recursive Feature Elimination (RFE).
+- F1-score evaluation and class-imbalance considerations.
+- K-means clustering and clustering metrics.
+
+Day 17:
+- NumPy-based neural-network exercises.
+- Synthetic neural-network concepts and forward calculations.
+- Neural-network training fundamentals.
+- MLPClassifier for handwritten-digit classification.
+- Experimenting with network behaviour and model outputs.
+
+Day 18: Convolutional Neural Networks
+- Manual convolution implementation.
+- Convolution, ReLU, and max-pooling blocks.
+- CNN parameter counting and VGG-style architecture design.
+- Tensor shape and floating-point operation tracing.
+- Hand-built CNN feature extraction.
+- im2col implementation and comparison with direct convolution.
+
+Day 19: Advanced Vision Models
+- Residual/skip connections and batch normalisation.
+- 1x1 convolutions and gradient behaviour.
+- Transfer-learning parameter budgets.
+- Transfer-learning sample efficiency.
+- Intersection over Union (IoU).
+- Confidence filtering and Non-Maximum Suppression (NMS).
+- Detection matching, precision, recall, and F1 metrics.
+
+Day 20: Segmentation and Explainable AI
+- Pixel-level segmentation metrics.
+- U-Net downsampling and upsampling stages using NumPy.
+- Grad-CAM implementation.
+- Saliency maps.
+- Occlusion sensitivity.
+- NumPy CNN feature extraction.
+- Image augmentation and associated metric calculations.
+
+Day 21: Recurrent Neural Networks
+- RNN forward passes and sequence classification.
+- Many-to-one sequence classification.
+- Backpropagation Through Time (BPTT).
+- Vanishing and exploding gradients.
+- Global-norm gradient clipping.
+- LSTM cell calculations.
+- Bidirectional LSTM concepts.
+
+Day 22: Sequence Models and Attention
+- Teacher-forcing decoder inputs and targets.
+- Sequence loss masking.
+- Greedy sequence decoding.
+- Fixed-context encoders.
+- Scaled dot-product attention using NumPy.
+- Time-series windowing and persistence baselines.
+
+Day 23: Generative Models
+- GAN discriminator and generator loss functions using NumPy.
+- Generator-loss gradients.
+- Variational Autoencoder (VAE) core equations.
+- VAE dimensional KL-divergence diagnostics.
+- The beta-VAE reconstruction-versus-KL trade-off.
+- Nearest-neighbour distance and mode-coverage evaluation.
+- Classifier Two-Sample Test (C2ST) for comparing generated and real data.
+
+Day 24: Text Representation and NLP
+- Tokenisation and Bag-of-Words with CountVectorizer.
+- TF-IDF representation and Logistic Regression classification.
+- Cosine similarity and nearest-neighbour retrieval.
+- Word analogies and embedding similarity.
+- Mean-pooled document embeddings.
+- PCA for embedding exploration.
+- Comparison of embedding models and Bag-of-Words on unseen vocabulary.
+- Mean pooling versus last-state pooling.
+
+Day 25: Transformer and BERT Concepts
+- Causal masked self-attention.
+- Self-attention, cross-attention, and future-leakage audits.
+- Multi-head self-attention using NumPy.
+- Positional encoding and add-and-norm blocks.
+- BERT masking and Masked Language Model (MLM) loss.
+- WordPiece tokenisation.
+- BERT pooling and representation extraction.
+
+Day 26: Applied LLM Concepts
+- Extractive summarisation and ROUGE-1 evaluation.
+- Lexicon-based sentiment analysis.
+- Few-shot prompt construction.
+- Chat message formatting and prompt rendering.
+- Token budgeting and context-window trimming.
+- LLM cost estimation.
+- Retry logic with exponential backoff.
+- Temperature, top-k, and top-p generation controls.
+
+Assessment Skills Demonstrated
+------------------------------
+- Writing and testing Python functions and pure-Python solutions.
+- Working with SQLAlchemy, SQLite, JWT, caching, password hashing, and API utilities.
+- Data preparation, feature engineering, and preprocessing pipelines.
+- Training, comparing, tuning, and evaluating machine-learning models.
+- Building and interpreting neural networks and deep-learning architectures.
+- Understanding vision, sequence, NLP, generative, and transformer models.
+- Applying explainability and responsible-evaluation methods.
+- Using metrics appropriately for classification, forecasting, detection, and generative tasks.

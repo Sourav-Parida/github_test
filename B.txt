@@ -1,0 +1,118 @@
+def load_data(filename: str) -> pd.DataFrame:
+
+    df = pd.read_csv(filename, dtype={"ticket_id": "string"})
+    df = df.drop_duplicates("ticket_id", keep="first").copy()
+    parsed = pd.to_datetime(df["opened_ts"], errors="coerce", format="mixed", dayfirst=True)
+    df = df.loc[parsed.notna()].copy()
+
+    df["opened_ts"] = parsed.loc[df.index]
+
+    for col in RAW_NUMERIC:
+        df[col] = pd.to_numeric(df[col], errors="coerce").replace([np.inf, -np.inf], np.nan)
+    
+    for col in CATEGORICAL:
+        df[col] = (df[col].astype("string").str.strip().str.lower()
+                    .str.replace(r"^([+-]?\d+)\.0+$", r"\1", regex=True)
+                    .replace("", pd.NA).fillna("unknown").astype(str))
+        
+    df["opened_hour"] = df["opened_ts"].dt.hour
+    df["opened_month"] = df["opened_ts"].dt.month
+    staff = df["agent_count"].where(df["agent_count"] > 0)
+    df["backlog_per_agent"] = (df["backlog_count"] / staff).replace([np.inf, -np.inf], np.nan)
+    
+    
+    if TARGET in df:
+        df[TARGET] = df[TARGET].astype("string").str.strip().str.upper().replace("", pd.NA)
+    return df.reset_index(drop=True)
+
+
+######################################################################
+def build_pipeline(algorithm: BaseEstimator) -> Pipeline:
+    
+    numeric = Pipeline([("imputer", SimpleImputer(strategy="median")),
+                        ("scaler", StandardScaler())])
+
+    
+    categorical = Pipeline([("imputer", SimpleImputer(strategy="most_frequent")),
+                            ("onehot", OneHotEncoder(handle_unknown="ignore"))])
+    
+    preprocessor = ColumnTransformer([
+        ("num", numeric, NUMERIC),
+        ("cat", categorical, CATEGORICAL)
+    ])
+
+    return Pipeline([("preprocessor", preprocessor), ("model", algorithm)])
+
+
+##################################################################################
+def prepare_datasets(train_file: str, test_file: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, LabelEncoder]:
+    
+    train_df, test_df = load_data(train_file), load_data(test_file)
+    train_df = train_df.loc[train_df[TARGET].isin(CLASS_NAMES)].copy()
+    test_df = test_df.loc[test_df[TARGET].isin(CLASS_NAMES)].copy()
+
+
+    encoder = LabelEncoder().fit(CLASS_NAMES)
+
+
+    y_train = pd.Series(encoder.transform(train_df[TARGET]), index=train_df.index, name=TARGET)
+    y_test = pd.Series(encoder.transform(test_df[TARGET]), index=test_df.index, name=TARGET)
+    
+    
+    return train_df[FEATURES], test_df[FEATURES], y_train, y_test, encoder
+
+
+#####################################################################################
+def train_models(X_train: pd.DataFrame, y_train: pd.Series) -> dict[str, Pipeline]:
+    
+    models = {
+        "logistic_regression": LogisticRegression(max_iter=1000, class_weight="balanced", random_state=42),
+        "random_forest": RandomForestClassifier(n_estimators=80, max_depth=10,
+                min_samples_leaf=2, class_weight="balanced", random_state=42, n_jobs=-1),
+    }
+    
+    trained_models = {}
+    for name, algorithm in models.items():
+        trained_models[name] = build_pipeline(algorithm).fit(X_train, y_train)
+
+    return trained_models
+
+
+#####################################################################################
+def evaluate_models(trained_models: dict[str, Pipeline], X_test: pd.DataFrame, y_test: pd.Series) -> tuple[pd.DataFrame, dict[str, np.ndarray]]:
+    
+    results, matrices = [], {}
+    class_ids = np.arange(3)
+    for name, pipeline in trained_models.items():
+        prediction = pipeline.predict(X_test)
+        results.append({"model_name": name,
+                        "accuracy": accuracy_score(y_test, prediction),
+                        "macro_f1": f1_score(y_test, prediction, labels=class_ids, average="macro", zero_division=0),
+                        "weighted_f1": f1_score(y_test, prediction, labels=class_ids, average="weighted", zero_division=0)})
+        matrices[name] = confusion_matrix(y_test, prediction, labels=class_ids)
+    comparison = pd.DataFrame(results).sort_values(
+        ["macro_f1", "weighted_f1", "model_name"], ascending=[False, False, True]
+    ).reset_index(drop=True)
+    return comparison, matrices
+
+
+###################################################################################
+def select_best_model(comparison: pd.DataFrame, trained_models: dict[str, Pipeline]) -> tuple[str, Pipeline]:
+    
+    name = str(comparison.iloc[0]["model_name"])
+    return name, trained_models[name]
+
+
+##########################################################################################3
+def predict_priority(model: Pipeline, encoder: LabelEncoder,df: pd.DataFrame) -> pd.DataFrame:
+    X = df[FEATURES]
+    ids = model.predict(X).astype(int)
+    probabilities = model.predict_proba(X)
+    high_id = int(encoder.transform(["HIGH"])[0])
+    high_idx = list(model.classes_).index(high_id)
+
+    
+    return pd.DataFrame({"ticket_id": df["ticket_id"].to_numpy(),
+                        "predicted_priority": encoder.inverse_transform(ids),
+                        "confidence": probabilities.max(axis=1).round(4),
+                        "high_probability": probabilities[:, high_idx].round(4)})
