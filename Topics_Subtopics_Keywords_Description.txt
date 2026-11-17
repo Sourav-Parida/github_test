@@ -1,0 +1,561 @@
+COMPLETED TOPICS, SUBTOPICS, AND KEYWORD EXPLANATIONS
+
+1. PYTHON AND SQLALCHEMY
+
+Topics:
+- Python functions and data structures
+- SQLAlchemy DeclarativeBase
+- SQLite databases
+- ORM models
+- Database sessions and commits
+- CRUD operations
+- Parameterised queries
+- SQL joins and aggregations
+
+Keywords and explanations:
+- Python: Main programming language used to implement assessments and retail workflows.
+- SQLAlchemy: Python library used to map Python classes to database tables.
+- DeclarativeBase: Base class used to define SQLAlchemy ORM models.
+- ORM: Object-Relational Mapping; it allows database records to be handled as Python objects.
+- SQLite: Lightweight database engine used for in-memory and local storage.
+- CRUD: Create, Read, Update, and Delete operations on database records.
+- Session: SQLAlchemy interface used to add, update, query, and commit database objects.
+- create_engine: Creates a connection to a database.
+- JOIN: Combines rows from multiple database tables.
+- LEFT JOIN: Keeps all rows from the left table even when there is no matching right-table row.
+- GROUP BY: Groups rows before applying aggregate calculations.
+- Parameterised query: Uses bound values to prevent unsafe SQL construction.
+
+2. API AND APPLICATION SECURITY
+
+Topics:
+- Input sanitisation
+- Cache keys
+- TTL caching
+- CORS headers
+- Password hashing
+- PBKDF2
+- JWT authentication
+- Token expiry
+- Role validation
+- Structured errors
+- Structured logs
+- Dependency injection
+
+Keywords and explanations:
+- Sanitisation: Removes or replaces unsafe or unwanted characters from user input.
+- Cache: Stores frequently used data to avoid repeated database or computation work.
+- Cache key: Unique string used to identify a cached result.
+- TTL: Time to Live; period after which cached data is considered expired.
+- Cache-aside: The application checks the cache first and then loads missing data from the repository.
+- CORS: Controls whether a browser may allow requests from a particular website origin.
+- Password hashing: Converts a password into a one-way stored representation.
+- PBKDF2: Password-based key derivation function that makes brute-force guessing more expensive.
+- JWT: JSON Web Token used to transfer signed identity and role claims.
+- HS256: HMAC-SHA256 algorithm used to sign and verify JWTs.
+- PyJWT: Python library used to create and decode JSON Web Tokens.
+- Token expiry: The time after which a token should no longer be accepted.
+- RBAC: Role-Based Access Control; permissions are assigned based on user roles.
+- Structured logging: Logs written with consistent fields such as request ID, method, path, status, and level.
+- Dependency injection: Passing required services, such as a repository or clock, into a class or function.
+
+3. LOGISTIC REGRESSION AND CLASSIFICATION
+
+Topics:
+- Binary classification
+- Multiclass classification
+- Train/test split
+- Feature scaling
+- Pipelines
+- Cross-validation
+- ROC-AUC
+- Confusion matrices
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Imbalanced datasets
+
+Keywords and explanations:
+- Classification: Predicting a category or class instead of a continuous number.
+- Logistic Regression: Linear classification model that estimates class probabilities using a sigmoid function.
+- Binary classification: Classification with two output classes, such as leave or stay.
+- Multiclass classification: Classification with more than two output categories.
+- Train/test split: Divides data into training and held-out evaluation portions.
+- Stratified split: Keeps class proportions similar across training and test sets.
+- StandardScaler: Standardises features to have a mean of zero and controlled scale.
+- Pipeline: Chains preprocessing and modelling steps so they work as one reproducible workflow.
+- Cross-validation: Repeatedly divides data into folds to produce a more reliable model estimate.
+- Accuracy: Percentage of all predictions that are correct.
+- Precision: Among positive predictions, the proportion that are truly positive.
+- Recall: Among actual positive cases, the proportion that the model finds.
+- F1-score: Harmonic mean of precision and recall.
+- Confusion matrix: Table showing true positives, true negatives, false positives, and false negatives.
+- ROC-AUC: Measures how well a model separates positive and negative classes across thresholds.
+- Imbalanced data: A dataset where one class occurs much more often than another.
+
+4. FEATURE ENGINEERING AND PREPROCESSING
+
+Topics:
+- Missing-value handling
+- Numeric feature scaling
+- Categorical encoding
+- One-hot encoding
+- Mixed-feature pipelines
+- Column transformation
+- Domain-based feature creation
+- Feature selection
+
+Keywords and explanations:
+- Feature engineering: Creating or transforming input values to improve model learning.
+- SimpleImputer: Fills missing values using a rule such as mean or most frequent value.
+- OneHotEncoder: Converts categories into separate binary columns.
+- ColumnTransformer: Applies different preprocessing operations to selected columns.
+- Feature scaling: Resizes numeric ranges so features can be compared on a common scale.
+- Mixed features: A combination of numeric and text or categorical columns.
+- Feature importance: Estimate of how much a model relies on an individual feature.
+- Encoding: Converts text categories into numeric form that a model can process.
+
+5. MODEL SELECTION AND EVALUATION
+
+Topics:
+- Comparing algorithms
+- Cross-validation
+- Hyperparameter tuning
+- Learning curves
+- Validation curves
+- Overfitting
+- Underfitting
+- Bias-variance trade-off
+- Model persistence
+
+Keywords and explanations:
+- Model selection: Choosing the model and settings that perform best for the required objective.
+- Hyperparameter: A setting chosen before or outside model training.
+- GridSearchCV: Tests combinations of hyperparameters using cross-validation.
+- Cross_val_score: Evaluates a model across multiple data folds.
+- Learning curve: Shows how performance changes as the amount of training data changes.
+- Validation curve: Shows how performance changes across values of a model setting.
+- Overfitting: The model learns training patterns too closely and performs poorly on new data.
+- Underfitting: The model is too simple to capture useful patterns.
+- Bias: Error caused by overly strong or incorrect model assumptions.
+- Variance: Sensitivity of the model to changes in training data.
+- Joblib: Library used to save and load trained scikit-learn objects.
+
+6. DECISION TREES AND ENSEMBLE LEARNING
+
+Topics:
+- Decision-tree classification
+- Random Forest
+- Bagging
+- Gradient Boosting
+- Ensemble comparison
+- Feature importance
+- Recursive Feature Elimination
+
+Keywords and explanations:
+- Decision Tree: Uses a sequence of threshold-based splits to make predictions.
+- Random Forest: Builds many decision trees and combines their predictions.
+- Ensemble: Combines multiple models to improve robustness or accuracy.
+- Bagging: Trains models on different bootstrap samples and aggregates their predictions.
+- Gradient Boosting: Builds models sequentially, with later models correcting earlier errors.
+- Pruning: Removes unnecessary decision-tree branches to reduce overfitting.
+- RFE: Recursive Feature Elimination; repeatedly removes less useful features.
+- Feature importance: Ranking of features according to their contribution to model predictions.
+
+7. KNN AND NAIVE BAYES
+
+Topics:
+- Distance-based classification
+- Neighbour selection
+- Gaussian Naive Bayes
+- Bayesian probability
+- Model comparison
+
+Keywords and explanations:
+- KNN: K Nearest Neighbours; predicts from the closest existing samples.
+- Euclidean distance: Straight-line distance between numeric feature values.
+- GaussianNB: Naive Bayes classifier that assumes feature distributions are Gaussian.
+- Bayes theorem: Uses prior knowledge and observed evidence to calculate probability.
+- Naive assumption: Assumes model features are conditionally independent, even when they may not be.
+
+8. SUPPORT VECTOR MACHINES
+
+Topics:
+- Linear SVM
+- RBF SVM
+- Maximum-margin classification
+- Kernel functions
+- Hyperparameter tuning
+
+Keywords and explanations:
+- SVM: Support Vector Machine; finds a boundary that separates classes with maximum margin.
+- SVC: Support Vector Classifier implementation in scikit-learn.
+- Support vectors: Training points closest to or on the edge of the separating boundary.
+- Margin: Distance between a decision boundary and the nearest data points.
+- Linear kernel: Separates data using a straight or flat decision boundary.
+- RBF kernel: Radial Basis Function; learns nonlinear boundaries.
+- C: Controls the balance between training errors and a simpler boundary.
+- Gamma: Controls how far the influence of each RBF sample extends.
+
+9. DIMENSIONALITY REDUCTION
+
+Topics:
+- Principal Component Analysis
+- Variance preservation
+- Dimensionality reduction
+- Embedding visualisation
+
+Keywords and explanations:
+- PCA: Principal Component Analysis; converts correlated features into principal components.
+- Principal components: New uncorrelated directions that capture maximum data variance.
+- Explained variance: Amount of original information preserved by a component or component set.
+- Dimensionality reduction: Represents data with fewer features while retaining useful patterns.
+
+10. CLUSTERING
+
+Topics:
+- K-means clustering
+- Centroid assignment
+- Cluster evaluation
+- Adjusted Rand Index
+
+Keywords and explanations:
+- Unsupervised learning: Finds patterns without relying on target labels.
+- KMeans: Clustering algorithm that assigns points to K nearest centroids.
+- Centroid: Mean position of all points in a cluster.
+- Inertia: Sum of distances from each point to its assigned cluster centroid.
+- Silhouette score: Measures how similar a point is to its cluster compared with neighbouring clusters.
+- Adjusted Rand Index: Compares clustering results while accounting for chance agreement.
+
+11. REGRESSION
+
+Topics:
+- Multiple regression
+- Gradient boosting regression
+- Error measurement
+- Demand prediction
+
+Keywords and explanations:
+- Regression: Predicting a continuous numeric value.
+- MAE: Mean Absolute Error; average absolute difference between actual and predicted values.
+- RMSE: Root Mean Squared Error; penalises larger prediction errors more strongly.
+- MSE: Mean Squared Error; average of squared prediction errors.
+- R-squared: Proportion of target variation explained by a regression model.
+
+12. NEURAL NETWORKS
+
+Topics:
+- Artificial Neural Networks
+- Perceptrons
+- MLPs
+- Forward propagation
+- Backpropagation
+- Gradient descent
+- Activation functions
+- Loss functions
+- Gradient clipping
+
+Keywords and explanations:
+- ANN: Artificial Neural Network; a model made of connected processing layers.
+- MLP: Multilayer Perceptron; a network with one or more hidden layers.
+- Forward propagation: Movement of input values through network layers to generate a result.
+- Backpropagation: Calculates gradients by propagating errors backwards through a network.
+- Gradient descent: Optimisation method that updates weights in the direction of smaller loss.
+- ReLU: Rectified Linear Unit; outputs zero for negative input and the input itself for positive values.
+- Sigmoid: Converts values into probabilities between zero and one.
+- Softmax: Converts output values into a probability distribution over multiple classes.
+- Dense layer: Fully connected layer in which each input connects to each neuron.
+- Cross-entropy: Loss function commonly used for classification probabilities.
+- Vanishing gradient: Gradients become extremely small and learning becomes slow.
+- Exploding gradient: Gradients become extremely large and destabilise training.
+- Gradient clipping: Limits gradient size to prevent exploding-gradient problems.
+
+13. CONVOLUTIONAL NEURAL NETWORKS
+
+Topics:
+- Convolution
+- Kernels and filters
+- ReLU
+- Max pooling
+- CNN architecture
+- Tensor shapes
+- Parameter counting
+- Fashion-MNIST
+- im2col
+- CNN feature extraction
+- Image augmentation
+
+Keywords and explanations:
+- CNN: Convolutional Neural Network designed to learn spatial image features.
+- Kernel/filter: Small matrix that detects patterns such as edges or textures.
+- Feature map: Output produced when a convolution filter scans an image.
+- Stride: Number of pixels by which a filter moves at each step.
+- Padding: Added border values that preserve spatial size or reduce boundary loss.
+- Pooling: Downsampling operation that retains important features and reduces size.
+- Max pooling: Replaces a region with its largest value.
+- Flatten: Converts multidimensional feature maps into a one-dimensional vector.
+- Fashion-MNIST: Clothing image dataset containing ten fashion categories.
+- VGG: A deep CNN family known for repeatedly using small convolution filters.
+- im2col: Converts image patches into matrix columns to perform convolution efficiently.
+
+14. TRANSFER LEARNING
+
+Topics:
+- Pretrained image models
+- ResNet50
+- Fine-tuning
+- Frozen layers
+- Parameter budgets
+- Sample efficiency
+
+Keywords and explanations:
+- Transfer learning: Reuses knowledge learned by a model on a large prior dataset.
+- ResNet50: Pretrained residual CNN with 50 weighted and/or main network layers.
+- Pretrained weights: Parameters already learned from a large dataset such as ImageNet.
+- Feature extraction: Uses pretrained layers to obtain useful image representations.
+- Fine-tuning: Continues training pretrained weights on a new dataset.
+- Frozen layers: Pretrained layers whose weights are not updated during early training.
+- Skip connection: Shortcut that passes a value around one or more convolution layers.
+- Sample efficiency: How effectively a model learns from limited training examples.
+
+15. OBJECT DETECTION
+
+Topics:
+- Bounding boxes
+- Intersection over Union
+- Confidence filtering
+- Non-Maximum Suppression
+- Detection matching
+- Precision and recall
+
+Keywords and explanations:
+- Bounding box: Rectangle representing the position of a detected object.
+- IoU: Intersection over Union; overlap area divided by combined area of two boxes.
+- Confidence score: Model-estimated probability that a detection is correct.
+- Confidence threshold: Minimum score needed to keep a detection.
+- NMS: Non-Maximum Suppression; removes overlapping duplicate detections.
+- Detection matching: Links predicted boxes to the correct ground-truth boxes.
+- Precision: Percentage of detections that are correct.
+- Recall: Percentage of real objects that were detected.
+
+16. IMAGE SEGMENTATION
+
+Topics:
+- Pixel classification
+- Segmentation masks
+- U-Net
+- Downsampling
+- Upsampling
+- Segmentation metrics
+
+Keywords and explanations:
+- Segmentation: Assigning a class label to each pixel in an image.
+- Mask: Image in which pixels represent class or object membership.
+- U-Net: Encoder-decoder CNN with skip connections for dense image predictions.
+- Downsampling: Reduces spatial resolution while learning abstract features.
+- Upsampling: Restores spatial resolution for full-size prediction.
+- Dice coefficient: Similarity measure for comparing predicted and true masks.
+
+17. EXPLAINABLE AI FOR VISION
+
+Topics:
+- Grad-CAM
+- Saliency maps
+- Occlusion sensitivity
+- Heatmaps
+
+Keywords and explanations:
+- XAI: Explainable Artificial Intelligence; techniques used to understand model decisions.
+- Grad-CAM: Visual explanation showing regions that strongly influence a predicted class.
+- Heatmap: Coloured map that indicates the strength or importance of different regions.
+- Saliency map: Highlights pixels whose changes strongly affect model output.
+- Occlusion: Replacing image regions to measure how much they influence predictions.
+
+18. RECURRENT NEURAL NETWORKS
+
+Topics:
+- RNN forward pass
+- Hidden states
+- Many-to-one sequence classification
+- Bidirectional RNN
+- LSTM
+- Backpropagation Through Time
+- Time-series forecasting
+
+Keywords and explanations:
+- RNN: Recurrent Neural Network; processes sequences using information from earlier steps.
+- Hidden state: Stored summary of sequence information seen before the current step.
+- Sequence: Ordered values such as text, audio, or past sales observations.
+- Many-to-one: Produces one output after reading a full sequence.
+- Bidirectional: Reads a sequence both forward and backward.
+- LSTM: Long Short-Term Memory network that uses gates to retain useful sequence information.
+- BPTT: Backpropagation Through Time; applies backpropagation across sequence steps.
+
+19. SEQUENCE-TO-SEQUENCE MODELS AND ATTENTION
+
+Topics:
+- Teacher forcing
+- Encoder-decoder design
+- Greedy decoding
+- Loss masking
+- Fixed context
+- Scaled dot-product attention
+- 7-day forecasting
+
+Keywords and explanations:
+- Seq2Seq: Sequence-to-Sequence model that converts an input sequence into an output sequence.
+- Teacher forcing: Uses the actual previous target during training instead of the predicted value.
+- Encoder: Reads an input sequence and creates a representation or context.
+- Decoder: Uses the encoded context to generate an output sequence.
+- Greedy decoding: Chooses the highest-probability next value at each step.
+- Loss mask: Prevents padding positions from contributing to training loss.
+- Attention: Allows the decoder to weight information from important input positions.
+- Context vector: Summary or weighted representation used by the decoder.
+
+20. GENERATIVE MODELS
+
+Topics:
+- Variational Autoencoders
+- Encoder and decoder
+- Latent space
+- Reconstruction loss
+- KL divergence
+- Beta-VAE
+- GAN loss functions
+- Mode coverage
+- C2ST
+
+Keywords and explanations:
+- VAE: Variational Autoencoder; learns a compressed probability distribution and reconstructs or generates data.
+- Latent space: Lower-dimensional representation of learned data variation.
+- Reconstruction loss: Measures how closely generated output matches the original input.
+- KL divergence: Measures how much a learned latent distribution differs from a target distribution.
+- Beta-VAE: VAE with adjustable weight balancing reconstruction and latent regularisation.
+- GAN: Generative Adversarial Network; uses competing generator and discriminator networks.
+- Generator: GAN network that creates synthetic data.
+- Discriminator: GAN network that distinguishes real data from generated data.
+- Mode collapse: Failure when a generator produces only a narrow range of outputs.
+- Mode coverage: Degree to which generated samples cover the range of real data modes.
+- C2ST: Classifier Two-Sample Test; trains a classifier to distinguish real and generated samples.
+
+21. TEXT REPRESENTATION AND NLP
+
+Topics:
+- Text cleaning
+- Tokenisation
+- Bag-of-Words
+- CountVectorizer
+- TF-IDF
+- Cosine similarity
+- Text embeddings
+- Mean pooling
+- PCA on embeddings
+
+Keywords and explanations:
+- NLP: Natural Language Processing; computational understanding and generation of human language.
+- NLTK: Natural Language Toolkit used for text-processing tasks.
+- Tokenisation: Splits text into words or other useful units.
+- Bag-of-Words: Represents text by word occurrence counts without preserving full order.
+- CountVectorizer: Converts a text collection into a word-count matrix.
+- TF-IDF: Measures how important a word is to a document relative to the full collection.
+- Cosine similarity: Measures similarity by the angle between two numeric vectors.
+- Embedding: Dense numeric representation where related meanings are located closer together.
+- Mean pooling: Creates one document vector by averaging its word or sentence vectors.
+- Word analogy: Uses vector relationships to identify patterns such as country and capital.
+
+22. TEXT CLASSIFICATION AND SENTIMENT
+
+Topics:
+- Sentiment analysis
+- TF-IDF baseline
+- Logistic Regression for text
+- BERT fine-tuning
+- Ticket routing
+- Informative terms
+- Weak labels
+
+Keywords and explanations:
+- Sentiment: Positive, negative, or neutral opinion expressed in text.
+- TF-IDF baseline: Simple text model that provides a classical comparison for transformer results.
+- BERT: Bidirectional Encoder Representations from Transformers; pretrained contextual language model.
+- DistilBERT: Smaller and faster variant of BERT.
+- Fine-tuning: Continues pretrained transformer training on a task-specific dataset.
+- Ticket routing: Automatically assigns support messages to operational categories.
+- Informative terms: Words strongly associated with a sentiment or predicted class.
+- Weak labels: Approximate labels generated by rules or keywords instead of expert annotation.
+
+23. TRANSFORMER ARCHITECTURE
+
+Topics:
+- Self-attention
+- Causal attention
+- Cross-attention
+- Multi-head attention
+- Positional encoding
+- Add-and-norm
+- BERT masking
+- Masked Language Model loss
+- WordPiece
+- BERT pooling
+
+Keywords and explanations:
+- Transformer: Neural architecture based mainly on attention rather than recurrence.
+- Self-attention: Compares every token with every other token in the same sequence.
+- Causal mask: Prevents a decoder from seeing future tokens.
+- Cross-attention: Allows one sequence to attend to positions in another sequence.
+- Multi-head attention: Runs several attention operations in parallel to capture different relationships.
+- Positional encoding: Supplies order information to a model that does not process tokens recurrently.
+- Add-and-norm: Residual addition followed by normalisation to stabilise transformer layers.
+- Masked LM: Training task that requires a model to predict intentionally hidden tokens.
+- WordPiece: Subword tokenisation that handles prefixes, suffixes, and unseen words.
+- Pooling: Converts a token sequence into a fixed representation for classification.
+
+24. APPLIED LLM CONCEPTS
+
+Topics:
+- Extractive summarisation
+- ROUGE-1
+- Lexicon sentiment
+- Few-shot prompting
+- Chat prompt formatting
+- Context trimming
+- Token budgeting
+- Cost estimation
+- Exponential backoff
+- Temperature
+- Top-k
+- Top-p
+
+Keywords and explanations:
+- Extractive summarisation: Builds a summary using original sentences selected from the source text.
+- ROUGE-1: Measures overlap of individual words between generated and reference text.
+- Lexicon sentiment: Uses a word dictionary with positive or negative sentiment scores.
+- Few-shot: Gives a few examples in a prompt to guide model behaviour.
+- Prompt: Instructions and context supplied to a language model.
+- Context window: Maximum amount of text a model can consider at one time.
+- Token budget: Planned maximum number of input, output, and system tokens.
+- Context trimming: Removes lower-priority text when the prompt exceeds the allowed context.
+- LLM cost: Model usage cost based on token quantity and selected pricing.
+- Exponential backoff: Repeated retry waits that grow, such as 1, 2, 4, and 8 seconds.
+- Temperature: Controls output randomness; lower values are more predictable.
+- Top-k: Restricts sampling to the K most likely next tokens.
+- Top-p: Restricts sampling to tokens covering the chosen cumulative probability.
+
+TOOLS AND TECHNOLOGIES
+
+- Python: General-purpose implementation language.
+- NumPy: Numerical arrays and mathematical operations.
+- Pandas: Tabular data loading and manipulation.
+- scikit-learn: Classical machine-learning models and evaluation tools.
+- TensorFlow: Deep-learning framework.
+- Keras: High-level neural-network API.
+- NLTK: Natural-language text processing toolkit.
+- Transformers: Hugging Face library for pretrained language models.
+- SQLAlchemy: Python ORM and database toolkit.
+- SQLite: Lightweight local relational database.
+- JWT/PyJWT: Signed authentication tokens.
+- Joblib: Saving and loading classical machine-learning objects.
+- Keras/Keras-format artifacts: Saving trained neural networks.
+- Safetensors: Efficient and safe format for storing model weights.
+- Jupyter: Interactive notebook environment for code, explanations, and visualisations.
