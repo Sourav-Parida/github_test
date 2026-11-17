@@ -1,7 +1,7 @@
 import zipfile
 import os
 
-zip_path = "M2/Archive.zip"
+zip_path = "M2/A_Cold_Chain_Shipment.zip"
 print(zip_path)
 extract_path = "M2"
 
