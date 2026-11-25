@@ -1,7 +1,0 @@
-hello world!!!!!!!
-Bhad mai jao
-
-hello
-
-nn model --> word2vec(skip-gram,cbow), glove
-
